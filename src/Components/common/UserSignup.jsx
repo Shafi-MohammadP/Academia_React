@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import { setUseremail } from "../../redux/Email";
 import { Loader } from "../Loader/Loader";
 
-const userSignUp = () => {
+function userSignUp() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const cl = console.log.bind(console);
@@ -222,6 +222,6 @@ const userSignUp = () => {
       </div>
     </>
   );
-};
+}
 
 export default userSignUp;

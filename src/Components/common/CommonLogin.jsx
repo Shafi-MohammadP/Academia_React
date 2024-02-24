@@ -12,7 +12,7 @@ import GoogleButton from "react-google-button";
 import axios from "axios";
 import { Loader } from "../Loader/Loader";
 
-const CommonLogin = () => {
+function CommonLogin  () {
   const [guser, setGuser] = useState();
   const [loading, setLoading] = useState(false);
   const handleLoading = () => setLoading((cur) => !cur);

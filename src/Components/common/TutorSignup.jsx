@@ -8,7 +8,7 @@ import { commonSignupurl } from "../../Constants/Constants";
 import { SignupValidationSchema } from "../../formvalidation/Signupvalidation";
 import { Loader } from "../Loader/Loader";
 
-const TutorSignup = () => {
+function TutorSignup() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const initialState = {
@@ -162,6 +162,6 @@ const TutorSignup = () => {
       </div>
     </>
   );
-};
+}
 
 export default TutorSignup;

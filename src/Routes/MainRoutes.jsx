@@ -10,15 +10,15 @@ import AdminRoutes from "./AdminRoutes/AdminRoutes";
 import CommonGoogle from "../Components/common/CommonGoogle";
 import EmailCheck from "../Components/common/Emailcheck";
 import CommonLogin from "../Components/common/commonLogin";
-import UserSignUp from "../Components/common/userSignUp";
 import TutorSignup from "../Components/common/TutorSignup";
+import StudentSignUp from "../Components/common/StudentSignUp";
 const MainRoutes = () => {
   return (
     <>
       <Toaster />
       <Routes>
         <Route path="/login/*" element={<CommonLogin />} />
-        <Route path="/student/Signup/" element={<UserSignUp />} />
+        <Route path="/student/Signup/" element={<StudentSignUp />} />
         <Route path="/tutor/Signup/" element={<TutorSignup />} />
         <Route path="/googlelogin/" element={<CommonGoogle />} />
         <Route path="/emailcheck/" element={<EmailCheck />} />

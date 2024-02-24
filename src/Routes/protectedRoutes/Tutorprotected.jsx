@@ -3,7 +3,6 @@ import React from "react";
 import AdminRoutes from "../AdminRoutes/AdminRoutes";
 import { Navigate, Outlet } from "react-router-dom";
 import StudentRoutes from "../StudentRoutes/StudentRoutes";
-import CommonLogin from "../../Components/common/commonLogin";
 
 const Tutorprotected = () => {
   const token = localStorage.getItem("authToken");

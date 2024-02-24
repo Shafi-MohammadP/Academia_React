@@ -4,7 +4,6 @@ import AdminRoutes from "../AdminRoutes/AdminRoutes";
 import StudentRoutes from "../StudentRoutes/StudentRoutes";
 import TutorRoutes from "../TutorRoutes/TutorRoutes";
 import { jwtDecode } from "jwt-decode";
-import CommonLogin from "../../Components/common/commonLogin";
 
 function Userprotected() {
   const token = localStorage.getItem("authToken");

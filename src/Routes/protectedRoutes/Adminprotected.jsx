@@ -3,7 +3,6 @@ import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import TutorRoutes from "../TutorRoutes/TutorRoutes";
 import StudentRoutes from "../StudentRoutes/StudentRoutes";
-import CommonLogin from "../../Components/common/commonLogin";
 import { useEffect } from "react";
 function Adminprotected() {
   const token = localStorage.getItem("authToken");

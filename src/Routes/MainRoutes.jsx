@@ -4,13 +4,14 @@ import StudentRoutes from "./StudentRoutes/StudentRoutes";
 import TutorLayout from "../Layouts/TutorLayout";
 import TutorRoutes from "./TutorRoutes/TutorRoutes";
 import { ToastContainer } from "react-toastify";
-import UserSignUp from "../Components/common/userSignUp";
-import TutorSignup from "../Components/common/TutorSignup";
+
 import toast, { Toaster } from "react-hot-toast";
 import AdminRoutes from "./AdminRoutes/AdminRoutes";
 import CommonGoogle from "../Components/common/CommonGoogle";
 import EmailCheck from "../Components/common/Emailcheck";
 import CommonLogin from "../Components/common/commonLogin";
+import UserSignUp from "../Components/common/userSignUp";
+import TutorSignup from "../Components/common/TutorSignup";
 const MainRoutes = () => {
   return (
     <>

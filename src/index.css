@@ -1,0 +1,64 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+/* @import "mdb-react-ui-kit/dist/css/mdb.min.css"; */
+/* @import "@fortawesome/fontawesome-free/css/all.min.css"; */
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=Andada+Pro:wght@400;500;600;700;800&display=swap");
+
+/* =========== base style ========= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+section,
+footer {
+  padding-top: 70px;
+  padding-bottom: 70px;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 2rem;
+  line-height: 50px;
+  font-family: "Poppins", sans-serif;
+  color: #0a2b1e;
+  font-weight: 600;
+}
+
+p {
+  color: #596b65;
+  font-size: 1rem;
+  line-height: 35px;
+  font-family: "Andada Pro", serif;
+  font-weight: 400;
+}
+
+button.btn {
+  background: #17bf9e;
+  color: #fff;
+  padding: 7px 25px;
+  border-radius: 50px;
+}
+button.btn:hover {
+  background: white;
+  color: #0a2b1e;
+}
+i {
+  color: #dd9f0d;
+}
+
+.hideScroll::-webkit-scrollbar {
+  display: none;
+}
+.txt {
+  color: black;
+}

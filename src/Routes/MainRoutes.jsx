@@ -9,17 +9,17 @@ import toast, { Toaster } from "react-hot-toast";
 import AdminRoutes from "./AdminRoutes/AdminRoutes";
 import CommonGoogle from "../Components/common/CommonGoogle";
 import EmailCheck from "../Components/common/Emailcheck";
-import CommonLogin from "../Components/common/commonLogin";
-import TutorSignup from "../Components/common/TutorSignup";
 import StudentSignUp from "../Components/common/StudentSignUp";
+import UsersLogin from "../Components/common/UsersLogin";
+import TeacherSignUp from "../Components/common/TeacherSignUp";
 const MainRoutes = () => {
   return (
     <>
       <Toaster />
       <Routes>
-        <Route path="/login/*" element={<CommonLogin />} />
+        <Route path="/login/*" element={<UsersLogin />} />
         <Route path="/student/Signup/" element={<StudentSignUp />} />
-        <Route path="/tutor/Signup/" element={<TutorSignup />} />
+        <Route path="/tutor/Signup/" element={<TeacherSignUp />} />
         <Route path="/googlelogin/" element={<CommonGoogle />} />
         <Route path="/emailcheck/" element={<EmailCheck />} />
 

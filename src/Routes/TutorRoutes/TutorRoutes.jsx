@@ -4,7 +4,6 @@ import TutorLayout from "../../Layouts/TutorLayout";
 import TutorHome from "../../Pages/Tutor/Home/TutorHome";
 
 import Tutorprotected from "../protectedRoutes/Tutorprotected";
-import TutorProfile from "../../Pages/Tutor/Profile/tutorProfile";
 import ApplicationForm from "../../Pages/Tutor/application form/ApplicationForm";
 import { useEffect } from "react";
 import { BaseUrl } from "../../Constants/Constants";
@@ -15,6 +14,7 @@ import TutorCourses from "../../Pages/Tutor/my-courses/TutorCourses";
 import AboutUs from "../../Components/common/about-us/AboutUs";
 import CourseDetailView from "../../Pages/Student/course-detail-view/CourseDetailView";
 import TutorVideoShow from "../../Components/tutor/tutor_video_show/TutorVideoShow";
+import TeacherProfile from "../../Pages/Tutor/Profile/TeacherProfile";
 
 const TutorRoutes = () => {
   const [user, setUser] = useState([]);
@@ -94,7 +94,7 @@ const TutorRoutes = () => {
           <Route path="/" element={<TutorLayout />}>
             <Route index element={<TutorHome />} />
             <Route path="/my-courses/*" element={<TutorCourses />} />
-            <Route path="tutorprofile" element={<TutorProfile />} />
+            <Route path="tutorprofile" element={<TeacherProfile />} />
             <Route path="courseView/" element={<CourseDetailView />} />
 
             <Route

@@ -28,7 +28,9 @@ const TutorRoutes = () => {
     });
   }, []);
   useEffect(() => {
-    const socket = new WebSocket("ws://localhost:8000/ws/tutor_notifications/");
+    const socket = new WebSocket(
+      "ws://academiabackend.molla.cloud/ws/tutor_notifications/"
+    );
 
     socket.onopen = (event) => {
       console.log("WebSocket connection opened:", event);

@@ -301,206 +301,206 @@ function TeacherProfile() {
   if (user.length === 0) {
     return <Loader />;
   }
-  return;
-  <>
-    <section style={{ backgroundColor: "#eee" }}>
-      {loading && <Loader />}
-      <MDBContainer className="py-5">
-        <MDBRow></MDBRow>
+  return (
+    <>
+      <section style={{ backgroundColor: "#eee" }}>
+        {loading && <Loader />}
+        <MDBContainer className="py-5">
+          <MDBRow></MDBRow>
 
-        <MDBRow>
-          <MDBCol lg="4">
-            <MDBCard className="mb-4">
-              <MDBCardBody className="text-center">
-                {user.profile_photo ? (
-                  <MDBCardImage
-                    src={user.profile_photo}
-                    className="rounded-circle  mx-auto d-block "
-                    style={{ width: "150px", height: "150px" }}
-                    fluid
-                  />
-                ) : (
-                  <MDBCardImage
-                    src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
-                    alt="avatar"
-                    className="rounded-circle mx-auto"
-                    style={{ width: "150px", height: "150px" }}
-                    fluid
-                  />
-                )}
-                <p className="text-muted mb-1">
-                  {user ? user.qualification : null}
-                </p>
-                {/* <p className="text-muted mb-4">Bay Area, San Francisco, CA</p> */}
-                <div className="d-flex justify-content-center mb-2">
-                  <MDBBtn onClick={handleOpen}>Edit Profile</MDBBtn>
-                  {user.is_certificate ? null : (
-                    <MDBBtn
-                      outline
-                      className="ms-1"
-                      onClick={handleCertificateOpen}
-                    >
-                      Upload Certificate
-                    </MDBBtn>
+          <MDBRow>
+            <MDBCol lg="4">
+              <MDBCard className="mb-4">
+                <MDBCardBody className="text-center">
+                  {user.profile_photo ? (
+                    <MDBCardImage
+                      src={user.profile_photo}
+                      className="rounded-circle  mx-auto d-block "
+                      style={{ width: "150px", height: "150px" }}
+                      fluid
+                    />
+                  ) : (
+                    <MDBCardImage
+                      src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+                      alt="avatar"
+                      className="rounded-circle mx-auto"
+                      style={{ width: "150px", height: "150px" }}
+                      fluid
+                    />
                   )}
-                </div>
-              </MDBCardBody>
-            </MDBCard>
-            <MDBCard className="mb-4">
-              <MDBCardBody className="">
-                <p className="txt text-center">Student List</p>
-                <table className="table">
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Course</th>
-                      <th>Date</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {studentList.length !== 0 ? (
-                      studentList.map((student, index) => (
-                        <tr key={index}>
-                          <td>{student.student.student_details.username}</td>
-                          <td>{student.course.course_name}</td>
-                          <td style={{ whiteSpace: "nowrap" }}>
-                            {student.created_at}
-                          </td>
-                        </tr>
-                      ))
-                    ) : (
-                      <tr>
-                        <td colSpan="3">No students available</td>
-                      </tr>
+                  <p className="text-muted mb-1">
+                    {user ? user.qualification : null}
+                  </p>
+                  {/* <p className="text-muted mb-4">Bay Area, San Francisco, CA</p> */}
+                  <div className="d-flex justify-content-center mb-2">
+                    <MDBBtn onClick={handleOpen}>Edit Profile</MDBBtn>
+                    {user.is_certificate ? null : (
+                      <MDBBtn
+                        outline
+                        className="ms-1"
+                        onClick={handleCertificateOpen}
+                      >
+                        Upload Certificate
+                      </MDBBtn>
                     )}
-                  </tbody>
-                </table>
-                <hr />
-              </MDBCardBody>
-            </MDBCard>
-          </MDBCol>
-          <MDBCol lg="8">
-            <MDBCard className="mb-4">
-              {user && (
-                <MDBCardBody>
-                  <MDBRow>
-                    <MDBCol sm="3">
-                      <MDBCardText>Full Name</MDBCardText>
-                    </MDBCol>
-                    <MDBCol sm="9">
-                      {
-                        <MDBCardText className="text-muted">
-                          {user.tutor_details.username}
-                        </MDBCardText>
-                      }
-                    </MDBCol>
-                  </MDBRow>
-                  <hr />
-                  <MDBRow>
-                    <MDBCol sm="3">
-                      <MDBCardText>Email</MDBCardText>
-                    </MDBCol>
-                    <MDBCol sm="9">
-                      <MDBCardText className="text-muted">
-                        {user.tutor_details.email}
-                      </MDBCardText>
-                    </MDBCol>
-                  </MDBRow>
-                  <hr />
-                  <MDBRow>
-                    <MDBCol sm="3">
-                      <MDBCardText>Qualification</MDBCardText>
-                    </MDBCol>
-                    <MDBCol sm="9">
-                      <MDBCardText className="text-muted">
-                        {user.qualification}
-                      </MDBCardText>
-                    </MDBCol>
-                  </MDBRow>
-                  <hr />
-                  <MDBRow>
-                    <MDBCol sm="3">
-                      <MDBCardText>Mobile</MDBCardText>
-                    </MDBCol>
-                    <MDBCol sm="9">
-                      <MDBCardText className="text-muted">
-                        {user.mobile}
-                      </MDBCardText>
-                    </MDBCol>
-                  </MDBRow>
-                  <hr />
-                  <MDBRow>
-                    <MDBCol sm="3">
-                      <MDBCardText>Bio</MDBCardText>
-                    </MDBCol>
-                    <MDBCol sm="9">
-                      <MDBCardText className="text-muted">
-                        {user.bio}
-                      </MDBCardText>
-                    </MDBCol>
-                  </MDBRow>
-                  <hr />
-                  <MDBRow>
-                    <MDBCol sm="3">
-                      <MDBCardText>Wallet</MDBCardText>
-                    </MDBCol>
-                    <MDBCol sm="9">
-                      <MDBCardText className="text-muted">
-                        {user.wallet}
-                      </MDBCardText>
-                    </MDBCol>
-                  </MDBRow>
-                  {user.is_certificate && (
-                    <>
-                      <hr />
-
-                      <MDBRow>
-                        <MDBCol sm="3">
-                          <MDBCardText>Certificate</MDBCardText>
-                        </MDBCol>
-                        <MDBCol sm="9">
-                          <MDBCardText
-                            className="text-muted cursor-pointer"
-                            onClick={handleViewCertificate}
-                          >
-                            view
-                          </MDBCardText>
-                        </MDBCol>
-                      </MDBRow>
-                    </>
-                  )}
+                  </div>
                 </MDBCardBody>
-              )}
-            </MDBCard>
-            <MDBCard>
-              <MDBCardBody>
-                <h3 className="text-center">instructions</h3>
-                <ul>
-                  {instructions.map((instruction, index) => (
-                    <li style={{ listStyle: "disc" }} key={index}>
-                      {instruction}
-                    </li>
-                  ))}
-                </ul>
-              </MDBCardBody>
-            </MDBCard>
-          </MDBCol>
-        </MDBRow>
-      </MDBContainer>
+              </MDBCard>
+              <MDBCard className="mb-4">
+                <MDBCardBody className="">
+                  <p className="txt text-center">Student List</p>
+                  <table className="table">
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Course</th>
+                        <th>Date</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {studentList.length !== 0 ? (
+                        studentList.map((student, index) => (
+                          <tr key={index}>
+                            <td>{student.student.student_details.username}</td>
+                            <td>{student.course.course_name}</td>
+                            <td style={{ whiteSpace: "nowrap" }}>
+                              {student.created_at}
+                            </td>
+                          </tr>
+                        ))
+                      ) : (
+                        <tr>
+                          <td colSpan="3">No students available</td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                  <hr />
+                </MDBCardBody>
+              </MDBCard>
+            </MDBCol>
+            <MDBCol lg="8">
+              <MDBCard className="mb-4">
+                {user && (
+                  <MDBCardBody>
+                    <MDBRow>
+                      <MDBCol sm="3">
+                        <MDBCardText>Full Name</MDBCardText>
+                      </MDBCol>
+                      <MDBCol sm="9">
+                        {
+                          <MDBCardText className="text-muted">
+                            {user.tutor_details.username}
+                          </MDBCardText>
+                        }
+                      </MDBCol>
+                    </MDBRow>
+                    <hr />
+                    <MDBRow>
+                      <MDBCol sm="3">
+                        <MDBCardText>Email</MDBCardText>
+                      </MDBCol>
+                      <MDBCol sm="9">
+                        <MDBCardText className="text-muted">
+                          {user.tutor_details.email}
+                        </MDBCardText>
+                      </MDBCol>
+                    </MDBRow>
+                    <hr />
+                    <MDBRow>
+                      <MDBCol sm="3">
+                        <MDBCardText>Qualification</MDBCardText>
+                      </MDBCol>
+                      <MDBCol sm="9">
+                        <MDBCardText className="text-muted">
+                          {user.qualification}
+                        </MDBCardText>
+                      </MDBCol>
+                    </MDBRow>
+                    <hr />
+                    <MDBRow>
+                      <MDBCol sm="3">
+                        <MDBCardText>Mobile</MDBCardText>
+                      </MDBCol>
+                      <MDBCol sm="9">
+                        <MDBCardText className="text-muted">
+                          {user.mobile}
+                        </MDBCardText>
+                      </MDBCol>
+                    </MDBRow>
+                    <hr />
+                    <MDBRow>
+                      <MDBCol sm="3">
+                        <MDBCardText>Bio</MDBCardText>
+                      </MDBCol>
+                      <MDBCol sm="9">
+                        <MDBCardText className="text-muted">
+                          {user.bio}
+                        </MDBCardText>
+                      </MDBCol>
+                    </MDBRow>
+                    <hr />
+                    <MDBRow>
+                      <MDBCol sm="3">
+                        <MDBCardText>Wallet</MDBCardText>
+                      </MDBCol>
+                      <MDBCol sm="9">
+                        <MDBCardText className="text-muted">
+                          {user.wallet}
+                        </MDBCardText>
+                      </MDBCol>
+                    </MDBRow>
+                    {user.is_certificate && (
+                      <>
+                        <hr />
 
-      <Dialog
-        open={imageOpen}
-        handler={handleImageOpen}
-        style={{
-          maxHeight: "100vh", // Set a maximum height for the modal
-          overflowY: "auto",
-        }}
-      >
-        <DialogBody>
-          <img src={application.certificate} alt="certificate-image" />
-        </DialogBody>
-        <DialogFooter>
-          {/* <Button
+                        <MDBRow>
+                          <MDBCol sm="3">
+                            <MDBCardText>Certificate</MDBCardText>
+                          </MDBCol>
+                          <MDBCol sm="9">
+                            <MDBCardText
+                              className="text-muted cursor-pointer"
+                              onClick={handleViewCertificate}
+                            >
+                              view
+                            </MDBCardText>
+                          </MDBCol>
+                        </MDBRow>
+                      </>
+                    )}
+                  </MDBCardBody>
+                )}
+              </MDBCard>
+              <MDBCard>
+                <MDBCardBody>
+                  <h3 className="text-center">instructions</h3>
+                  <ul>
+                    {instructions.map((instruction, index) => (
+                      <li style={{ listStyle: "disc" }} key={index}>
+                        {instruction}
+                      </li>
+                    ))}
+                  </ul>
+                </MDBCardBody>
+              </MDBCard>
+            </MDBCol>
+          </MDBRow>
+        </MDBContainer>
+
+        <Dialog
+          open={imageOpen}
+          handler={handleImageOpen}
+          style={{
+            maxHeight: "100vh", // Set a maximum height for the modal
+            overflowY: "auto",
+          }}
+        >
+          <DialogBody>
+            <img src={application.certificate} alt="certificate-image" />
+          </DialogBody>
+          <DialogFooter>
+            {/* <Button
             variant="text"
             color="red"
             onClick={handleImageOpen}
@@ -508,222 +508,223 @@ function TeacherProfile() {
           >
             <span>Cancel</span>
           </Button> */}
-          <Button variant="gradient" color="red" onClick={handleImageClose}>
-            <span>close</span>
-          </Button>
-        </DialogFooter>
-      </Dialog>
-      <Modal
-        open={openCertificate}
-        onClose={handleCertificateClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Upload Certificate
-          </Typography>
-          <div className="w-full flex justify-center">
-            {selectedCertificate ? (
-              <img
-                src={
-                  selectedCertificate instanceof File
-                    ? URL.createObjectURL(selectedCertificate)
-                    : null
-                }
-                style={{
-                  width: "100px",
-                  height: "100px",
-                }}
-                alt="selected-image"
-              />
-            ) : null}
-          </div>
-          <form
-            class="max-w-screen-lg mt-8 mb-2 w-80 sm:w-96"
-            encType="multipart/form-data"
-            onSubmit={handleCertificateSubmit}
-          >
-            <div className="flex justify-between w-full px-10">
-              <input type="file" onChange={handleCertificateChange} />
-            </div>
-            <button
-              class="mt-6 block w-full select-none rounded-lg bg-gray-900 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-              type="submit"
-            >
-              submit
-            </button>
-          </form>
-        </Box>
-      </Modal>
-
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Profile
-          </Typography>
-          <div className="w-full flex justify-center">
-            {user.profile_photo ? (
-              <div className="relative">
-                {selectedFile ? (
-                  // Display the selected image if a file is selected
-                  <img
-                    src={URL.createObjectURL(selectedFile)}
-                    style={{
-                      width: "100px",
-                      height: "100px",
-                    }}
-                    alt="selected-image"
-                  />
-                ) : (
-                  // Display the user's profile photo if no file is selected
-                  <div className="relative">
-                    <img
-                      src={user.profile_photo}
-                      style={{ width: "100px", height: "100px" }}
-                      alt="profile-image"
-                    />
-                  </div>
-                )}
-                <FontAwesomeIcon
-                  icon={faCamera}
-                  className="absolute text-black-900 bottom-0 right-0 bg-white w-full h-4 cursor-pointer"
-                  onClick={handleProfileImage}
-                />
-              </div>
-            ) : (
-              <div className="relative">
+            <Button variant="gradient" color="red" onClick={handleImageClose}>
+              <span>close</span>
+            </Button>
+          </DialogFooter>
+        </Dialog>
+        <Modal
+          open={openCertificate}
+          onClose={handleCertificateClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Upload Certificate
+            </Typography>
+            <div className="w-full flex justify-center">
+              {selectedCertificate ? (
                 <img
-                  src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
-                  alt="static-image"
-                  style={{ width: "100px", height: "100px" }}
+                  src={
+                    selectedCertificate instanceof File
+                      ? URL.createObjectURL(selectedCertificate)
+                      : null
+                  }
+                  style={{
+                    width: "100px",
+                    height: "100px",
+                  }}
+                  alt="selected-image"
                 />
-                <FontAwesomeIcon
-                  icon={faCamera}
-                  className="absolute text-black-900 bottom-0 right-0 bg-white w-full h-4 cursor-pointer"
-                  onClick={handleProfileImage}
-                />
-              </div>
-            )}
-          </div>
-          <form
-            class="max-w-screen-lg mt-8 mb-2 w-80 sm:w-96"
-            encType="multipart/form-data"
-            onSubmit={handleFormSubmit}
-          >
-            {showModal && (
-              // Your modal component or file input goes here
-              // Example using a simple file input:
+              ) : null}
+            </div>
+            <form
+              class="max-w-screen-lg mt-8 mb-2 w-80 sm:w-96"
+              encType="multipart/form-data"
+              onSubmit={handleCertificateSubmit}
+            >
               <div className="flex justify-between w-full px-10">
-                <input type="file" onChange={handleFileChange} />
-
-                <button onClick={closeModal}>
-                  {/* <FontAwesomeIcon icon={faClose} /> */}
-                  <IoCloseCircleSharp size={26} />
-                </button>
+                <input type="file" onChange={handleCertificateChange} />
               </div>
-            )}
+              <button
+                class="mt-6 block w-full select-none rounded-lg bg-gray-900 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                type="submit"
+              >
+                submit
+              </button>
+            </form>
+          </Box>
+        </Modal>
 
-            <input
-              type="file"
-              ref={fileInputProfileRef}
-              style={{ display: "none" }}
-              onChange={handleFileChange}
-            />
-            <div class="flex flex-col gap-6 mb-1">
-              {/* <h6 class="block -mb-3 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-blue-gray-900">
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Profile
+            </Typography>
+            <div className="w-full flex justify-center">
+              {user.profile_photo ? (
+                <div className="relative">
+                  {selectedFile ? (
+                    // Display the selected image if a file is selected
+                    <img
+                      src={URL.createObjectURL(selectedFile)}
+                      style={{
+                        width: "100px",
+                        height: "100px",
+                      }}
+                      alt="selected-image"
+                    />
+                  ) : (
+                    // Display the user's profile photo if no file is selected
+                    <div className="relative">
+                      <img
+                        src={user.profile_photo}
+                        style={{ width: "100px", height: "100px" }}
+                        alt="profile-image"
+                      />
+                    </div>
+                  )}
+                  <FontAwesomeIcon
+                    icon={faCamera}
+                    className="absolute text-black-900 bottom-0 right-0 bg-white w-full h-4 cursor-pointer"
+                    onClick={handleProfileImage}
+                  />
+                </div>
+              ) : (
+                <div className="relative">
+                  <img
+                    src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+                    alt="static-image"
+                    style={{ width: "100px", height: "100px" }}
+                  />
+                  <FontAwesomeIcon
+                    icon={faCamera}
+                    className="absolute text-black-900 bottom-0 right-0 bg-white w-full h-4 cursor-pointer"
+                    onClick={handleProfileImage}
+                  />
+                </div>
+              )}
+            </div>
+            <form
+              class="max-w-screen-lg mt-8 mb-2 w-80 sm:w-96"
+              encType="multipart/form-data"
+              onSubmit={handleFormSubmit}
+            >
+              {showModal && (
+                // Your modal component or file input goes here
+                // Example using a simple file input:
+                <div className="flex justify-between w-full px-10">
+                  <input type="file" onChange={handleFileChange} />
+
+                  <button onClick={closeModal}>
+                    {/* <FontAwesomeIcon icon={faClose} /> */}
+                    <IoCloseCircleSharp size={26} />
+                  </button>
+                </div>
+              )}
+
+              <input
+                type="file"
+                ref={fileInputProfileRef}
+                style={{ display: "none" }}
+                onChange={handleFileChange}
+              />
+              <div class="flex flex-col gap-6 mb-1">
+                {/* <h6 class="block -mb-3 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-blue-gray-900">
                 Username
               </h6> */}
 
-              <div class="relative h-11 w-full min-w-[200px]">
-                <input
-                  placeholder="Username"
-                  value={user.tutor_details.username}
-                  class="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
-                />
-                <label class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all before:content-none after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all after:content-none peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500"></label>
-              </div>
+                <div class="relative h-11 w-full min-w-[200px]">
+                  <input
+                    placeholder="Username"
+                    value={user.tutor_details.username}
+                    class="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                  />
+                  <label class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all before:content-none after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all after:content-none peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500"></label>
+                </div>
 
-              {/* <h6 class="block -mb-3 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-blue-gray-900">
+                {/* <h6 class="block -mb-3 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-blue-gray-900">
                 Your Email
               </h6> */}
-              <div class="relative h-11 w-full min-w-[200px]">
-                <input
-                  placeholder="example@gmail.com"
-                  value={user.tutor_details.email}
-                  class="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
-                />
-                <label class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all before:content-none after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all after:content-none peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500"></label>
-              </div>
+                <div class="relative h-11 w-full min-w-[200px]">
+                  <input
+                    placeholder="example@gmail.com"
+                    value={user.tutor_details.email}
+                    class="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                  />
+                  <label class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all before:content-none after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all after:content-none peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500"></label>
+                </div>
 
-              {/* <h6 class="block -mb-3 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-blue-gray-900">
+                {/* <h6 class="block -mb-3 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-blue-gray-900">
                 Bio
               </h6> */}
-              <div class="relative h-full w-full min-w-[200px]">
-                <textarea
-                  placeholder={user.bio ? user.bio : "Enter Your Bio"}
-                  name="bio"
-                  value={bio}
-                  onChange={(e) => setBio(e.target.value)}
-                  class="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 overflow-y-hidden"
-                ></textarea>
-                {/* <!-- Add label if needed --> */}
-              </div>
+                <div class="relative h-full w-full min-w-[200px]">
+                  <textarea
+                    placeholder={user.bio ? user.bio : "Enter Your Bio"}
+                    name="bio"
+                    value={bio}
+                    onChange={(e) => setBio(e.target.value)}
+                    class="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 overflow-y-hidden"
+                  ></textarea>
+                  {/* <!-- Add label if needed --> */}
+                </div>
 
-              {/* <h6 class="block -mb-3 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-blue-gray-900">
+                {/* <h6 class="block -mb-3 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-blue-gray-900">
                 Mobile Number
               </h6> */}
-              <div class="relative h-11 w-full min-w-[200px]">
-                <input
-                  placeholder={
-                    user.mobile ? user.mobile : "Enter Your Mobile Number"
-                  }
-                  type="number"
-                  name="mobile"
-                  value={mobile}
-                  onChange={(e) => setMobile(e.target.value)}
-                  class="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
-                />
-                {/* <!-- Add label if needed --> */}
-              </div>
+                <div class="relative h-11 w-full min-w-[200px]">
+                  <input
+                    placeholder={
+                      user.mobile ? user.mobile : "Enter Your Mobile Number"
+                    }
+                    type="number"
+                    name="mobile"
+                    value={mobile}
+                    onChange={(e) => setMobile(e.target.value)}
+                    class="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                  />
+                  {/* <!-- Add label if needed --> */}
+                </div>
 
-              {/* <h6 class="block -mb-3 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-blue-gray-900">
+                {/* <h6 class="block -mb-3 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-blue-gray-900">
                 Qualification
               </h6> */}
-              <div class="relative h-11 w-full min-w-[200px]">
-                <input
-                  type="text"
-                  name="qualification"
-                  value={qualification}
-                  onChange={(e) => setQualification(e.target.value)}
-                  placeholder={
-                    user.qualification
-                      ? user.qualification
-                      : "Enter Your Qualification"
-                  }
-                  class="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
-                />
+                <div class="relative h-11 w-full min-w-[200px]">
+                  <input
+                    type="text"
+                    name="qualification"
+                    value={qualification}
+                    onChange={(e) => setQualification(e.target.value)}
+                    placeholder={
+                      user.qualification
+                        ? user.qualification
+                        : "Enter Your Qualification"
+                    }
+                    class="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                  />
+                </div>
               </div>
-            </div>
 
-            <div class="inline-flex items-center"></div>
+              <div class="inline-flex items-center"></div>
 
-            <button
-              class="mt-6 block w-full select-none rounded-lg bg-gray-900 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-              type="submit"
-            >
-              Submit
-            </button>
-          </form>
-        </Box>
-      </Modal>
-    </section>
-  </>;
+              <button
+                class="mt-6 block w-full select-none rounded-lg bg-gray-900 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                type="submit"
+              >
+                Submit
+              </button>
+            </form>
+          </Box>
+        </Modal>
+      </section>
+    </>
+  );
 }
 
 export default TeacherProfile;

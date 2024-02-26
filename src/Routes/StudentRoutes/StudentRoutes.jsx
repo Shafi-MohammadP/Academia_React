@@ -21,7 +21,7 @@ import PurchasedCourseVideo from "../../Pages/Student/video-show/PurchasedCourse
 const StudentRoutes = () => {
   useEffect(() => {
     const socket = new WebSocket(
-      "ws://localhost:8000/ws/student_notifications/"
+      "ws://academiabackend.molla.cloud/ws/student_notifications/"
     );
 
     socket.onopen = (event) => {

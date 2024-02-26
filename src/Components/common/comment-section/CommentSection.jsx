@@ -97,7 +97,7 @@ const CommentsSection = ({ user, calculateDate, videoId }) => {
       });
   }, [managePage]);
   useEffect(() => {
-    const socket = new WebSocket("ws://localhost:8000/ws/comment_updation/");
+    const socket = new WebSocket("ws://academiabackend.molla.cloud/ws/comment_updation/");
 
     socket.onopen = (event) => {
       console.log("WebSocket connection opened in comment:", event);

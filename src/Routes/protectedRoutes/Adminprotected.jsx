@@ -7,7 +7,9 @@ import { useEffect } from "react";
 function Adminprotected() {
   const token = localStorage.getItem("authToken");
   useEffect(() => {
-    const socket = new WebSocket("ws://localhost:8000/ws/adminnotification/");
+    const socket = new WebSocket(
+      "ws://academiabackend.molla.cloud/ws/adminnotification/"
+    );
 
     socket.onopen = (event) => {
       console.log("WebSocket connection opened:", event);

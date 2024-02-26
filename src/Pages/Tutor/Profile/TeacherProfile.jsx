@@ -216,6 +216,7 @@ function TeacherProfile() {
     }
     console.log(certificate, "certificate");
     try {
+      console.log(certificate, "certificate");
       await axios.post(certificateApiUrl, certificate).then((response) => {
         if (response.data.status === 200) {
           setSelectedCertificate([]);
@@ -229,7 +230,10 @@ function TeacherProfile() {
         handleCertificateClose();
       });
     } catch (err) {
-      console.log(err, "error found during certificate upload");
+      console.log(
+        err,
+        "error found during certificate upload after hosting found here"
+      );
       handleCertificateClose();
     } finally {
       setLoading(false);

@@ -76,8 +76,10 @@
   .mobile__menu {
     display: block;
   }
+
+  /* Display the user icon on small screens */
   .nav__right {
-    display: none;
+    display: block;
   }
 
   .active__menu {

@@ -28,15 +28,15 @@ const TutorRoutes = () => {
     });
   }, []);
   useEffect(() => {
-    const socket = new WebSocket(
-      "ws://academiabackend.molla.cloud/ws/tutor_notifications/"
+    const tutorSocket = new WebSocket(
+      "wss://academiabackend.molla.cloud/ws/tutor_notifications/"
     );
 
-    socket.onopen = (event) => {
+    tutorSocket.onopen = (event) => {
       console.log("WebSocket connection opened:", event);
     };
 
-    socket.onmessage = (event) => {
+    tutorSocket.onmessage = (event) => {
       console.log("WebSocket message received:", event);
 
       // Parse the message data if needed
@@ -46,11 +46,11 @@ const TutorRoutes = () => {
       showNotification(messageData.message);
     };
 
-    socket.onerror = (error) => {
+    tutorSocket.onerror = (error) => {
       console.error("WebSocket error:", error);
     };
 
-    socket.onclose = (event) => {
+    tutorSocket.onclose = (event) => {
       console.log("WebSocket connection closed:", event);
     };
 
@@ -85,7 +85,7 @@ const TutorRoutes = () => {
 
     // Clean up the WebSocket connection on component unmount
     return () => {
-      socket.close();
+      tutorSocket.close();
     };
   }, []);
 

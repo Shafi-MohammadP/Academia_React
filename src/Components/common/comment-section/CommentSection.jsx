@@ -97,13 +97,14 @@ const CommentsSection = ({ user, calculateDate, videoId }) => {
       });
   }, [managePage]);
   useEffect(() => {
-    const socket = new WebSocket("ws://academiabackend.molla.cloud/ws/comment_updation/");
-
-    socket.onopen = (event) => {
+    const commentSocket = new WebSocket(
+      "wss://academiabackend.molla.cloud/ws/comment_updation/"
+    );
+    commentSocket.onopen = (event) => {
       console.log("WebSocket connection opened in comment:", event);
     };
 
-    socket.onmessage = (event) => {
+    commentSocket.onmessage = (event) => {
       console.log("WebSocket message received in Comment:", event);
 
       // Parse the message data if needed
@@ -120,11 +121,11 @@ const CommentsSection = ({ user, calculateDate, videoId }) => {
       }
     };
 
-    socket.onerror = (error) => {
+    commentSocket.onerror = (error) => {
       console.error("WebSocket error comment:", error);
     };
 
-    socket.onclose = (event) => {
+    commentSocket.onclose = (event) => {
       console.log("WebSocket connection closed comment:", event);
     };
 
@@ -159,7 +160,7 @@ const CommentsSection = ({ user, calculateDate, videoId }) => {
 
     // Clean up the WebSocket connection on component unmount
     return () => {
-      socket.close();
+      commentSocket.close();
     };
   }, []);
   return (

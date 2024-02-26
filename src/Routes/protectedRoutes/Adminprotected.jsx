@@ -7,15 +7,13 @@ import { useEffect } from "react";
 function Adminprotected() {
   const token = localStorage.getItem("authToken");
   useEffect(() => {
-    const socket = new WebSocket(
-      "ws://academiabackend.molla.cloud/ws/adminnotification/"
-    );
+    const adminSocket = new WebSocket('wss://academiabackend.molla.cloud/ws/adminnotification/');
 
-    socket.onopen = (event) => {
+    adminSocket.onopen = (event) => {
       console.log("WebSocket connection opened:", event);
     };
 
-    socket.onmessage = (event) => {
+    adminSocket.onmessage = (event) => {
       console.log("WebSocket message received:", event);
 
       // Parse the message data if needed
@@ -26,11 +24,11 @@ function Adminprotected() {
       showNotification(messageData.message);
     };
 
-    socket.onerror = (error) => {
+    adminSocket.onerror = (error) => {
       console.error("WebSocket error:", error);
     };
 
-    socket.onclose = (event) => {
+    adminSocket.onclose = (event) => {
       console.log("WebSocket connection closed:", event);
     };
 
@@ -65,7 +63,7 @@ function Adminprotected() {
 
     // Clean up the WebSocket connection on component unmount
     return () => {
-      socket.close();
+      adminSocket.close();
     };
   }, []);
   if (token) {

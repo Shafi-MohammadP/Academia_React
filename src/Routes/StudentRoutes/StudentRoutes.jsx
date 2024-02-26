@@ -20,15 +20,15 @@ import PurchasedCourseVideo from "../../Pages/Student/video-show/PurchasedCourse
 
 const StudentRoutes = () => {
   useEffect(() => {
-    const socket = new WebSocket(
-      "ws://academiabackend.molla.cloud/ws/student_notifications/"
+    const studentSocket = new WebSocket(
+      "wss://academiabackend.molla.cloud/ws/student_notifications/"
     );
 
-    socket.onopen = (event) => {
+    studentSocket.onopen = (event) => {
       console.log("WebSocket connection opened:", event);
     };
 
-    socket.onmessage = (event) => {
+    studentSocket.onmessage = (event) => {
       console.log("WebSocket message received:", event);
 
       // Parse the message data if needed
@@ -39,11 +39,11 @@ const StudentRoutes = () => {
       showNotification(messageData.message);
     };
 
-    socket.onerror = (error) => {
+    studentSocket.onerror = (error) => {
       console.error("WebSocket error:", error);
     };
 
-    socket.onclose = (event) => {
+    studentSocket.onclose = (event) => {
       console.log("WebSocket connection closed:", event);
     };
 
@@ -78,7 +78,7 @@ const StudentRoutes = () => {
 
     // Clean up the WebSocket connection on component unmount
     return () => {
-      socket.close();
+      studentSocket.close();
     };
   }, []);
 

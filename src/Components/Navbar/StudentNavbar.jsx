@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import logo from "../../assets/Company_Logo.png";
 import axios from "axios";
+import { BaseUrl } from "../../Constants/Constants";
 
 const StudentNavbar = () => {
   const [isDropdownVisible, setDropdownVisible] = useState(false);
@@ -34,7 +35,7 @@ const StudentNavbar = () => {
       try {
         if (student) {
           const response = await axios.get(
-            `http://127.0.0.1:8000/user/studentProfile/${student.user_id}/`
+            `${BaseUrl}user/studentProfile/${student.user_id}/`
           );
           setUser(response.data);
           console.log(response.data, "Backend Data");

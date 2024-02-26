@@ -134,7 +134,7 @@ export default function StudentProfilePage() {
       try {
         if (student) {
           const response = await axios.get(
-            `http://127.0.0.1:8000/user/studentProfile/${student.user_id}/`
+            `${BaseUrl}user/studentProfile/${student.user_id}/`
           );
           setUser(response.data);
         }

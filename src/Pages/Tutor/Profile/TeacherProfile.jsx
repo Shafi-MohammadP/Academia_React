@@ -277,7 +277,7 @@ function TeacherProfile() {
     const fetchTutorProfile = async () => {
       try {
         const response = await axios.get(
-          `http://127.0.0.1:8000/user/tutorProfile/${tutor.user_id}/`
+          `${BaseUrl}user/tutorProfile/${tutor.user_id}/`
         );
         setUser(response.data);
       } catch (err) {

@@ -104,19 +104,18 @@ const StudentRoutes = () => {
             <Route path="search-result/" element={<SearchCorseList />} />
             <Route path="all-courses/" element={<AllCourses />} />
             <Route path="courseCategory/" element={<CourseCategoryList />} />
-            <Route
-              path="courseCategory/courseView/"
-              element={<CourseDetailView />}
-            />
-            <Route
-              path="all-courses/courseView"
-              element={<CourseDetailView />}
-            />
+            <Route path="courseCategory/courseView/">
+              <Route index element={<CourseDetailView />} />
+              <Route path="video-show/" element={<PurchasedCourseVideo />} />
+            </Route>
+            <Route path="all-courses/courseView">
+              <Route index element={<CourseDetailView />} />
+              <Route path="video-show/" element={<PurchasedCourseVideo />} />
+            </Route>
             <Route
               path="purchased-course/course-detail-view/video-show/"
               element={<PurchasedCourseVideo />}
             />
-            {/* <Route path="newDemo/" element={<Head />} /> */}
           </Route>
         </Route>
       </Routes>

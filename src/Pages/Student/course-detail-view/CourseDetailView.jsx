@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Container, Row, Col } from "reactstrap";
 import { Button } from "@mui/material";
 import "./course-detail-view.css";
@@ -23,6 +23,7 @@ const CourseDetailView = () => {
   const user = useSelector((state) => state.user.userInfo);
   const location = useLocation();
   const course = location.state.course;
+  const navigate = useNavigate();
   const { tutor_profile } = course;
   const { id: tutorId } = tutor_profile;
   const [courseReview, setCourseReview] = useState([]);
@@ -31,21 +32,39 @@ const CourseDetailView = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [purchaseList, setPurchaseList] = useState([]);
   const [purchased, setPurchased] = useState(false);
+
   const openModal = (info) => {
-    console.log(info);
+    const isCoursePurchased = purchaseList.some(
+      (item) => item.student.id === user.id && item.course.id === course.id
+    );
+    console.log(isCoursePurchased);
+    if (isCoursePurchased) {
+      navigate("video-show/", {
+        state: {
+          videoDEtails: info,
+        },
+      });
+      return;
+    }
     if (info.is_free_of_charge) {
       setSelectedVideo(info.video);
       setIsModalOpen(true);
     } else {
-      const message = "you need to purchase the course to watch the video!!";
-      toast(<CustomeToast message={message} icon={faExclamationTriangle} />, {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-      });
+      if (purchased) {
+        setSelectedVideo(info.video);
+        setIsModalOpen(true);
+      } else {
+        const message = "you need to purchase the course to watch the video!!";
+
+        toast(<CustomeToast message={message} icon={faExclamationTriangle} />, {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+      }
     }
   };
   const closeModal = () => {
@@ -73,17 +92,30 @@ const CourseDetailView = () => {
   };
   const checkPurchased = (event) => {
     const checked = purchaseList.find((obj) => obj.course.id === event);
-    // if (checked) {
-    //   setPurchased(true);
-    // }
     return checked ? (
-      // setPurchased(true)
       ""
     ) : (
       <Button className="btn" onClick={() => handlePurchaseCourse(course.id)}>
         Purchase Course
       </Button>
     );
+  };
+  const checkVideoShow = () => {
+    const isCoursePurchased = purchaseList.some(
+      (item) => item.course.id === course.id
+    );
+    console.log(isCoursePurchased);
+    if (isCoursePurchased) {
+      setPurchased(true);
+    }
+  };
+  const handleVideoShow = (data) => {
+    console.log("work");
+    navigate("video-show/", {
+      state: {
+        videoDEtails: data,
+      },
+    });
   };
   useEffect(() => {
     const fetchCourseVideo = () => {
@@ -109,6 +141,7 @@ const CourseDetailView = () => {
       .then((res) => {
         setPurchaseList(res.data);
         console.log(res.data, "------------------------<<<<");
+        // checkVideoShow();
       })
       .catch((err) => {
         console.error(err, "error in purchaseList");
@@ -196,7 +229,13 @@ const CourseDetailView = () => {
                             className="h-full w-96"
                             src={video_details.thumbnail_image}
                             alt="demo image"
+                            onClick={
+                              purchased
+                                ? () => handleVideoShow(video_details)
+                                : () => {}
+                            }
                           />
+
                           <FontAwesomeIcon
                             className="absolute text-black bg-white  top-[40%] left-[40%] w-10 h-10 cursor-pointer"
                             style={{ borderRadius: "50%" }}

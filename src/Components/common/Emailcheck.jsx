@@ -11,7 +11,7 @@ function EmailCheck() {
 
   // Correct the use of useSelector
   const email = useSelector((state) => state.email.userEmail);
-
+  console.log(email, "email...........");
   const Gmail = () => {
     window.open("https://mail.google.com/mail/u/0/#inbox", "_blank");
     dispatch(resetEmail());

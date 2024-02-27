@@ -86,6 +86,7 @@ const PurchaseCourse = () => {
   };
   const handleReviewSubmit = async (event) => {
     handleClose();
+    console.log(newRating, review);
     if (newRating === 0 || review === "") {
       toast.error("Field cannot be empty");
       return;
@@ -137,6 +138,8 @@ const PurchaseCourse = () => {
       });
     fetchPurchasedCourseDetails();
   }, [change]);
+
+  console.log(newRating, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 
   return (
     <>
@@ -286,14 +289,14 @@ const PurchaseCourse = () => {
               encType="multipart/form-data"
               onSubmit={() => handleReviewSubmit("")}
             >
-              {/* <StarRating
-                rating={rating}
+              <StarRating
+                rating={newRating}
                 onRatingChange={(newRating) => setNewRating(newRating)}
-              /> */}
-              <Rating
-                rating={rating}
-                onDurationChange={(newRating) => setNewRating(newRating)}
               />
+              {/* <Rating
+                rating={rating}
+                onChange={() => setNewRating(newRating)}
+              /> */}
               <Textarea
                 placeholder={user.review ? user.review : "Enter Your Review"}
                 name="review"

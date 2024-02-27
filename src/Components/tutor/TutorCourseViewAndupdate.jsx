@@ -149,6 +149,7 @@ const TutorCoursesView = () => {
       description ? description : courseDetails.description
     );
     editCourse.append("price", price ? price : courseDetails.price);
+    console.log(accessToken, "token");
     try {
       const response = await fetch(apiUrl, {
         method: "PATCH",

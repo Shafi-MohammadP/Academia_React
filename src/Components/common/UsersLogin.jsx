@@ -192,7 +192,7 @@ function UsersLogin() {
   return (
     <>
       {loading && <Loader />}
-      <div className="grid grid-cols-1 sm:grid-cols-2 overflow-x-hidden">
+      <div className="grid grid-cols-1 sm:grid-cols-2 overflow-x-hidden h-svh">
         <div className="hidden sm:block">
           <img
             className="w-full h-full object-cover"

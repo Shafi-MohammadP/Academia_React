@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { BaseUrl } from "../../Constants/Constants";
+import { BaseUrl, accessToken } from "../../Constants/Constants";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { Loader } from "../Loader/Loader";
@@ -238,11 +238,13 @@ const TutorCoursesView = () => {
       console.log(`${key}: ${value}`);
     }
     try {
-      const response = await axios.post(apiUrl, videoForm, config);
-      console.log(
-        response.data,
-        "responseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
-      );
+      const response = await axios.post(apiUrl, videoForm, {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          "Content-type": "multipart/form-data",
+        },
+      });
+      console.log(response.data);
       if (response.data.status === 201) {
         setTitle("");
         setVideoDescription("");

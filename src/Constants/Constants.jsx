@@ -11,11 +11,12 @@ export const BaseUrl = import.meta.env.VITE_baseUrl;
 export const imageBaseUrl = import.meta.env.VITE_imageBase;
 const tokenDataString = localStorage.getItem("authToken");
 const tokenData = JSON.parse(tokenDataString);
-const accessToken = tokenData ? tokenData.access : null;
+export const accessToken = tokenData ? tokenData.access : null;
+const token = tokenData ? tokenData.access : null;
 export const config = {
   headers: {
     "Content-Type": "multipart/form-data",
-    Authorization: `Bearer ${accessToken}`,
+    Authorization: `Bearer ${token}`,
   },
 };
 export const ApplicationConfig = {

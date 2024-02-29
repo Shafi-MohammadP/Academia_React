@@ -11,7 +11,6 @@ import {
   Card,
   CardContent,
   CardActions,
-  // Button,
   TextField,
   Typography,
 } from "@mui/material";
@@ -52,7 +51,6 @@ const TutorCoursesView = () => {
   });
   const location = useLocation();
   const course = location.state.course;
-  console.log(course, "tutor course");
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [courseDetails, setCourseDetailView] = useState([]);
@@ -102,7 +100,7 @@ const TutorCoursesView = () => {
   const [title, setTitle] = useState("");
   const [videoDescription, setVideoDescription] = useState("");
   const [free, setFree] = useState(false);
-
+  const [paid, setPaid] = useState(false);
   let imageAddFile = null;
 
   const handleProfileImage = () => {
@@ -280,6 +278,7 @@ const TutorCoursesView = () => {
       video_description: video_info.video_description,
       thumbnail_image: video_info.thumbnail_image,
       video: video_info.video,
+      is_free_of_charge: video_info.is_free_of_charge,
     });
     setEditVideo(!editVideo);
   };
@@ -311,7 +310,9 @@ const TutorCoursesView = () => {
     if (free) {
       EditVideoForm.append("is_free_of_charge", free);
     }
-
+    if (paid) {
+      EditVideoForm.append("is_free_of_charge", !paid);
+    }
     for (const [key, value] of EditVideoForm.entries()) {
       console.log(`${key}: ${value}`);
     }
@@ -325,6 +326,9 @@ const TutorCoursesView = () => {
         setSelectedVideo([]);
         if (free) {
           setFree(false);
+        }
+        if (paid) {
+          setPaid(false);
         }
         setChange(!change);
         console.log(response.data.message, "message");
@@ -758,7 +762,7 @@ const TutorCoursesView = () => {
                 variant="h6"
                 component="h2"
               >
-                Add Video
+                Edit Video
               </Typography>
               <TextField
                 label={videoInfo.video_title}
@@ -850,12 +854,24 @@ const TutorCoursesView = () => {
                 </>
               )} */}
 
-              <FormControlLabel
-                control={
-                  <Checkbox checked={free} onChange={handleCheckboxChange} />
-                }
-                label="Free"
-              />
+              {videoInfo.is_free_of_charge ? (
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={paid}
+                      onChange={(e) => setPaid(e.target.checked)}
+                    />
+                  }
+                  label="Paid"
+                />
+              ) : (
+                <FormControlLabel
+                  control={
+                    <Checkbox checked={free} onChange={handleCheckboxChange} />
+                  }
+                  label="Free"
+                />
+              )}
               <Button
                 variant="contained"
                 onClick={handleVideoEditSubmit}

@@ -91,69 +91,16 @@ function TeacherProfile() {
   const tutor = useSelector((state) => {
     if (state.user.userInfo.role === "tutor") return state.user.userInfo;
   });
-  // useEffect(() => {
-  //   const socket = new WebSocket("ws://localhost:8000/ws/adminnotification/");
-
-  //   socket.onopen = (event) => {
-  //     console.log("WebSocket connection opened:", event);
-  //   };
-
-  //   socket.onmessage = (event) => {
-  //     console.log("WebSocket message received:", event);
-
-  //     // Parse the message data if needed
-  //     const messageData = JSON.parse(event.data);
-  //     console.log(messageData, "message data");
-
-  //     // Show a notification
-  //     showNotification(messageData.message);
-  //   };
-
-  //   socket.onerror = (error) => {
-  //     console.error("WebSocket error:", error);
-  //   };
-
-  //   socket.onclose = (event) => {
-  //     console.log("WebSocket connection closed:", event);
-  //   };
-
-  //   // Function to show a notification
-  //   const showNotification = (message) => {
-  //     if ("Notification" in window) {
-  //       console.log(message, "message---------------------->>>>>");
-  //       const currentPermission = Notification.permission;
-
-  //       if (currentPermission === "granted") {
-  //         console.log(message, "message---------------------->>>>>");
-
-  //         // Permission already granted, create a notification
-  //         new Notification("New Message", {
-  //           body: message,
-  //         });
-  //       } else if (currentPermission !== "denied") {
-  //         // Permission not granted or denied, request it
-  //         Notification.requestPermission().then((permission) => {
-  //           console.log(message, "message---------------------->>>>>");
-
-  //           if (permission === "granted") {
-  //             // Permission granted, create a notification
-  //             new Notification("New Message", {
-  //               body: message,
-  //             });
-  //           }
-  //         });
-  //       }
-  //     }
-  //   };
-  //   return () => {
-  //     socket.close();
-  //   };
-  // }, []);
 
   const handleFormSubmit = async (e) => {
     const apiUrl = `${BaseUrl}tutor/profileEdit/${user.id}/`;
     setLoading(true);
     handleClose();
+    if (mobile && !/^(\+\d{1,2})?\d{10,11}$/.test(mobile)) {
+      toast.error("Invalid mobile number");
+      setLoading(false);
+      return;
+    }
     if (bio === null || qualification === null || mobile === null) {
       toast.error("field cannot be empty");
       setLoading(false);

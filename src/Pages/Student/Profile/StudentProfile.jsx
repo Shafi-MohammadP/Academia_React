@@ -64,6 +64,11 @@ export default function StudentProfilePage() {
     const apiUrl = `${BaseUrl}student/profileEdit/${user.id}/`;
     setLoading(true);
     e.preventDefault();
+    if (mobile && !/^(\+\d{1,2})?\d{10,11}$/.test(mobile)) {
+      toast.error("Invalid mobile number");
+      setLoading(false);
+      return;
+    }
     const profileFormValidation = {
       bio: bio ? bio : user.bio,
       mobile: mobile ? mobile : user.mobile,

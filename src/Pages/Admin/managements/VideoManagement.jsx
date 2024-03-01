@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { BaseUrl } from "../../../Constants/Constants";
+import { BaseUrl, accessToken } from "../../../Constants/Constants";
 import axios from "axios";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -35,11 +35,19 @@ const VideoManagement = () => {
   const handleApproval = async (id) => {
     const apiUrl = `${BaseUrl}dashboard/videoApproval/${id}/`;
     try {
-      const response = await axios.patch(apiUrl, {}, ApplicationConfig);
+      const response = await fetch(apiUrl, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
       if (response.status === 200) {
         setChange(!change);
         toast.success("Video Status Updated successfully");
       } else {
+        console.log(response);
         toast.error("Error During Video Updation");
       }
     } catch (err) {

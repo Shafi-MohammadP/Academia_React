@@ -39,15 +39,12 @@ const HeroSection = () => {
                 Anytime Anywhere <br /> Learn on your <br /> Suitable Schedule
               </h2>
               <p className="mb-5">
-                Lorem ipsum dolor sit amet consectetur <br /> adipisicing elit.
-                Aut saepe voluptatum earum delectus <br /> deserunt id iste,
-                quas officiis et repellat!
+                We strive to break down barriers to education, providing a
+                platform that connects <br /> skilled tutors with eager learners
+                globally. Our mission is to empower individuals <br /> through
+                transformative learning experiences.
               </p>
             </div>
-            {/* <div className="search">
-              <input type="text" placeholder="Search" />
-              <button className="btn">Search</button>
-            </div> */}
             <SearchComponent onSearch={handleSearch} />
           </Col>
 
@@ -78,13 +75,3 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
-
-// const message = "No Result Found";
-// toast(<CustomeToast message={message} icon={faBan} />, {
-//   position: "top-right",
-//   autoClose: 2000,
-//   hideProgressBar: false,
-//   closeOnClick: true,
-//   pauseOnHover: true,
-//   draggable: true,
-// });

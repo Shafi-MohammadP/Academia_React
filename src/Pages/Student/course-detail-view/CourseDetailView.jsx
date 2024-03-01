@@ -161,7 +161,7 @@ const CourseDetailView = () => {
             <Col lg="6" md="6">
               <div className="about__content">
                 <h2>{course.course_name}</h2>
-                <p>{course.description}</p>
+                <p className="txt">{course.description}</p>
                 <h3 className="text-black">{course.price}</h3>
 
                 <div className="about__counter">
@@ -210,14 +210,6 @@ const CourseDetailView = () => {
                     </Col>
                   </Row>
 
-                  {/* {!purchaseList.includes(course.id) ? (
-    <Button
-      className="btn"
-      onClick={() => handlePurchaseCourse(course.id)}
-    >
-      Purchase Course
-    </Button>
-  ) : null} */}
                   {checkPurchased(course.id)}
                 </div>
               </div>

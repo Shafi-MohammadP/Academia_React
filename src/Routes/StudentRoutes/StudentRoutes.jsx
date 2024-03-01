@@ -101,7 +101,10 @@ const StudentRoutes = () => {
               path="purchased-course/course-detail-view/"
               element={<PurchaseCourseDetailsView />}
             />
-            <Route path="courseView/" element={<CourseDetailView />} />
+            <Route path="courseView/">
+              <Route index element={<CourseDetailView />} />
+              <Route path="video-show/" element={<PurchasedCourseVideo />} />
+            </Route>
             <Route path="search-result/" element={<SearchCorseList />} />
             <Route path="all-courses/" element={<AllCourses />} />
             <Route path="courseCategory/" element={<CourseCategoryList />} />

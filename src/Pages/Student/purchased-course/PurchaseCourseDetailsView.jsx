@@ -180,7 +180,7 @@ const PurchaseCourseDetailsView = () => {
             <Col lg="6" md="6">
               <div className="about__content">
                 <h2>{courseDetail.course_details.course_name}</h2>
-                <p>{courseDetail.course_details.description}</p>
+                <p className="txt">{courseDetail.course_details.description}</p>
                 <h3 className="text-black">
                   {courseDetail.course_details.price}
                 </h3>
@@ -219,12 +219,8 @@ const PurchaseCourseDetailsView = () => {
                       </p>
                     </div>
                   </div>
-                  {/* <Button
-                    className="btn"
-                    onClick={() => handlePurchaseCourse(course.id)}
-                  >
-                    Purchase Course
-                  </Button> */}
+
+                  <Button className="btn">Message Teacher</Button>
                 </div>
               </div>
             </Col>

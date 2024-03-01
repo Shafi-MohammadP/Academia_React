@@ -15,7 +15,6 @@ import { useSelector } from "react-redux";
 const SearchComponent = ({ onSearch }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const c = location.pathname;
   const [searchTerm, setSearchTerm] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchCourseData, setSearchCourseData] = useState([]);
@@ -23,7 +22,6 @@ const SearchComponent = ({ onSearch }) => {
 
   const courseView = (event) => {
     const item = searchCourseData.find((obj) => obj.id === event);
-    console.log(user, "userrrrrrrrrrr");
     if (item.role === "tutor" && item.tutor_id === user.id) {
       navigate("my-courses/courseUpdate/", { state: { course: item } });
     } else {
@@ -83,8 +81,6 @@ const SearchComponent = ({ onSearch }) => {
                     <ListItemPrefix>
                       {course.image ? (
                         <img
-                          // variant="circular"
-                          // alt="candice"
                           style={{
                             width: "50%",
                             height: "100%",
@@ -98,9 +94,12 @@ const SearchComponent = ({ onSearch }) => {
                       )}
                     </ListItemPrefix>
                     <div>
-                      <Typography variant="h6" color="blue-gray">
-                        {course.course_name}
+                      <Typography
+                        variant="h6"
+                        color="blue-gray"
                         onClick={(e) => courseView(course.id)}
+                      >
+                        {course.course_name}
                       </Typography>
                     </div>
                   </ListItem>

@@ -1,7 +1,7 @@
 import React, { useEffect, useLayoutEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { BaseUrl } from "../../Constants/Constants";
+import { BaseUrl, accessToken } from "../../Constants/Constants";
 import PaymentLoader from "./payment-loader/PaymentLoader";
 import { config } from "../../Constants/Constants";
 function SuccessPage() {
@@ -42,14 +42,22 @@ function SuccessPage() {
           tutor: tutorId,
         };
         try {
-          const response = await axios.post(apiUrl, data, config);
+          const response = await fetch(apiUrl, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${accessToken}`, 
+            },
+            body: JSON.stringify(data),
+          });
+
           if (response.status === 201) {
             setSuccess(true);
           } else {
             setSuccess(false);
           }
         } catch (err) {
-          console.error(err, "found on purchase");
+          console.error(err, "Error found on purchase");
           setSuccess(false);
         } finally {
           setLoading(false);

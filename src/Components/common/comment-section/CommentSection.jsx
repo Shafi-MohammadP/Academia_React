@@ -1,7 +1,11 @@
 // CommentsSection.js
 import React, { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "reactstrap";
-import { ApplicationConfig, BaseUrl } from "../../../Constants/Constants";
+import {
+  ApplicationConfig,
+  BaseUrl,
+  accessToken,
+} from "../../../Constants/Constants";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Box, Input, Typography } from "@mui/material";
@@ -45,14 +49,48 @@ const CommentsSection = ({ user, calculateDate, videoId }) => {
       text: newComment,
     };
     try {
-      const response = await axios.post(apiUrl, data, ApplicationConfig);
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) {
+        switch (response.status) {
+          case 400:
+            console.log("Bad Request");
+
+            break;
+          case 401:
+            console.log("Unauthorized");
+
+            break;
+          case 403:
+            console.log("Forbidden");
+
+            break;
+          case 404:
+            console.log("Not Found");
+
+            break;
+          default:
+            console.log(`Server Error: ${response.status}`);
+        }
+      }
+      const responseData = await response.json();
+      console.log(response.data, response.status);
       if (response.status === 201) {
         setNewComment("");
-        toast.success(response.data.message);
+        toast.success(responseData.message);
         console.log(newComment, "newCOmment");
         setManagePage(true);
+      } else {
+        toast.error("Cant post comment");
       }
     } catch (err) {
+      toast.error("something went wrong");
       console.error(err);
     }
   };

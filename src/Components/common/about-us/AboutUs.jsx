@@ -19,10 +19,12 @@ const AboutUs = () => {
           <Col lg="6" md="6">
             <div className="about__content">
               <h2>About Us</h2>
-              <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Excepturi cupiditate animi deserunt libero nesciunt corporis
-                explicabo nobis ex quo molestiae!
+              <p className="txt">
+                At Academia E-learning Platform, we are driven by a passion for
+                education and a commitment to making learning accessible to
+                everyone. Our platform is a hub for knowledge seekers and tutors
+                alike, fostering a community built on curiosity, collaboration,
+                and skill development.
               </p>
 
               <div className="about__counter">

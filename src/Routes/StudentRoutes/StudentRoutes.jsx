@@ -15,6 +15,7 @@ import CourseCategoryList from "../../Components/common/coursecategorybaselistin
 import PurchaseCourse from "../../Pages/Student/purchased-course/PurchaseCourse";
 import PurchaseCourseDetailsView from "../../Pages/Student/purchased-course/PurchaseCourseDetailsView";
 import PurchasedCourseVideo from "../../Pages/Student/video-show/PurchasedCourseVideo";
+import AboutUs from "../../Components/common/about-us/AboutUs";
 // import { LoginPage } from "../../Pages/Student/Login/Login";
 // import { SignupPage } from "../../Pages/Student/Signup/Signup";
 
@@ -117,6 +118,7 @@ const StudentRoutes = () => {
               element={<PurchasedCourseVideo />}
             />
           </Route>
+          <Route path="about-us/" element={<AboutUs />} />
         </Route>
       </Routes>
     </>

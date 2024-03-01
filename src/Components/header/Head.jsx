@@ -161,11 +161,11 @@ const Head = () => {
                   <a href="/">pages</a>
                 </li>
                 <li className="nav__item">
-                  <a href="/">about us</a>
+                  <Link to={"/about-us"}>About Us</Link>
                 </li>
-                <li className="nav__item">
+                {/* <li className="nav__item">
                   <a href="/">blog</a>
-                </li>
+                </li> */}
               </ul>
             </div>
 

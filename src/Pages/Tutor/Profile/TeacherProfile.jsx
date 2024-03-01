@@ -128,17 +128,20 @@ function TeacherProfile() {
         "qualification",
         qualification ? qualification : user.qualification
       );
-      axios.patch(apiUrl, editProfile).then((response) => {
-        const res = response.data;
-        if (res.status === 200) {
-          setImageChange([]);
-          setBio("");
-          setQualification("");
-          setMobile("");
-          setUser(res.teacherData);
-          toast.success(res.message);
-        }
-      });
+      const response = await axios.patch(apiUrl, editProfile);
+      const data = response.data;
+      console.log(data, "data");
+      if (data.status === 200) {
+        setImageChange([]);
+        setBio("");
+        setQualification("");
+        setMobile("");
+        setUser(data.teacherData);
+        toast.success(data.message);
+      } else {
+        console.log("something ent wrong");
+        toast.error("Something went wrong");
+      }
     } catch (error) {
       console.log(error, "Error During Submission");
     } finally {

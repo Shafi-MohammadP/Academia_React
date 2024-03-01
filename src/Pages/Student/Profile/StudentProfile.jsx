@@ -60,10 +60,11 @@ export default function StudentProfilePage() {
   const [qualification, setQualification] = useState("");
   const [imageChange, setImageChange] = useState([]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     const apiUrl = `${BaseUrl}student/profileEdit/${user.id}/`;
-    setLoading(true);
     e.preventDefault();
+    setLoading(true);
+    handleClose();
     if (mobile && !/^(\+\d{1,2})?\d{10,11}$/.test(mobile)) {
       toast.error("Invalid mobile number");
       setLoading(false);
@@ -96,20 +97,19 @@ export default function StudentProfilePage() {
       qualification ? qualification : user.qualification
     );
     try {
-      axios.patch(apiUrl, EditProfile).then((response) => {
-        const data = response.data;
-        if (data.status === 200) {
-          handlesetChange();
-          toast.success(data.message);
-        } else {
-          toast.error(data.message);
-        }
-      });
+      const response = await axios.patch(apiUrl, EditProfile);
+      const data = response.data;
+      if (data.status === 200) {
+        handlesetChange();
+        toast.success(data.message);
+      } else {
+        toast.error(data.message);
+      }
     } catch (error) {
-      console.error(error, "Error Founded");
+      console.error("Error:", error);
+      toast.error("An error occurred");
     } finally {
       setLoading(false);
-      handleClose();
     }
   };
 

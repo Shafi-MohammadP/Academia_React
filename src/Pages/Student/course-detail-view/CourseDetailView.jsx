@@ -93,7 +93,7 @@ const CourseDetailView = () => {
   const checkPurchased = (event) => {
     const checked = purchaseList.find((obj) => obj.course.id === event);
     return checked ? (
-      ""
+      <Button className="btn">Message Teacher</Button>
     ) : (
       <Button className="btn" onClick={() => handlePurchaseCourse(course.id)}>
         Purchase Course
@@ -165,44 +165,60 @@ const CourseDetailView = () => {
                 <h3 className="text-black">{course.price}</h3>
 
                 <div className="about__counter">
-                  <div className="flex gap-40 align-items-center">
-                    <div className="single__counter">
-                      <p className="counter__title text-black ">
-                        <i className="ri-movie-fill"></i> {course.video_count}{" "}
-                        Videos
-                      </p>
-                    </div>
+                  <Row className="mb-3">
+                    <Col>
+                      <div className="flex items-center">
+                        <div className="single__counter">
+                          <p className="counter__title text-black">
+                            <i className="ri-movie-fill"></i>{" "}
+                            {course.video_count} Videos
+                          </p>
+                        </div>
+                      </div>
+                    </Col>
+                    <Col>
+                      <div className="flex items-center">
+                        <div className="single__counter text-black">
+                          <p className="d-flex align-items-center gap-1 text-black">
+                            <i className="ri-star-fill ml-1"></i>{" "}
+                            {course.average_rating}K
+                          </p>
+                        </div>
+                      </div>
+                    </Col>
+                  </Row>
 
-                    <div className="single__counter text-black">
-                      <p className="d-flex align-items-center gap-1 text-black">
-                        <i class="ri-star-fill ml-16"></i>{" "}
-                        {course.average_rating}K
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex gap-40 align-items-center">
-                    <div className="single__counter">
-                      <p className="counter__title text-black ">
-                        <i className="ri-presentation-fill"></i>{" "}
-                        {course.tutor_profile.tutor_details.username}
-                      </p>
-                    </div>
+                  <Row>
+                    <Col>
+                      <div className="flex items-center">
+                        <div className="single__counter">
+                          <p className="counter__title text-black">
+                            <i className="ri-presentation-fill"></i>{" "}
+                            {course.tutor_profile.tutor_details.username}
+                          </p>
+                        </div>
+                      </div>
+                    </Col>
+                    <Col>
+                      <div className="flex items-center">
+                        <div className="single__counter text-black">
+                          <p className="d-flex align-items-center gap-1 text-black">
+                            <i className="ri-thumb-up-fill"></i> {course.likes}
+                          </p>
+                        </div>
+                      </div>
+                    </Col>
+                  </Row>
 
-                    <div className="single__counter text-black">
-                      <p className="d-flex align-items-center gap-1 text-black ml-[4.5rem]">
-                        <i class="ri-thumb-up-fill"></i> {course.likes}
-                      </p>
-                    </div>
-                  </div>
                   {/* {!purchaseList.includes(course.id) ? (
-                    <Button
-                      className="btn"
-                      onClick={() => handlePurchaseCourse(course.id)}
-                    >
-                      Purchase Course
-                    </Button>
-                  ) : null} */}{" "}
-                  {checkPurchased(course.id)}{" "}
+    <Button
+      className="btn"
+      onClick={() => handlePurchaseCourse(course.id)}
+    >
+      Purchase Course
+    </Button>
+  ) : null} */}
+                  {checkPurchased(course.id)}
                 </div>
               </div>
             </Col>

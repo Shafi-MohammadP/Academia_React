@@ -133,7 +133,10 @@ const Head = () => {
             <div className="nav__menu" ref={menuRef} onClick={menuToggle}>
               <ul className="nav__list relative">
                 <li className="nav__item">
-                  <a href="/" onMouseEnter={toggleCategoryDropdown}>
+                  <a
+                    className="cursor-pointer"
+                    onClick={toggleCategoryDropdown}
+                  >
                     categories
                   </a>
                 </li>

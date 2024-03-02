@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Card, CardHeader, Col, Container, Form, Row } from "reactstrap";
 import Modal from "@mui/material/Modal";
-import { BaseUrl, config } from "../../../Constants/Constants";
+import { BaseUrl } from "../../../Constants/Constants";
 import axios from "axios";
 import { useRef } from "react";
 import toast from "react-hot-toast";
@@ -138,8 +138,6 @@ const PurchaseCourse = () => {
       });
     fetchPurchasedCourseDetails();
   }, [change]);
-
-  console.log(newRating, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 
   return (
     <>

@@ -72,20 +72,7 @@ function PurchasedCourseVideo() {
       <i className="ri-pencil-line absolute top-0 right-0 text-2xl"></i>
     );
   };
-  const handlePostComment = async () => {
-    const apiUrl = `${BaseUrl}course/video_comment/`;
-    const data = {
-      user: user.user_id,
-      video: video_details.id,
-      text: newComment,
-    };
-    try {
-      const response = await axios.post(apiUrl, data, ApplicationConfig);
-      console.log(response.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+
   return (
     <>
       <section>

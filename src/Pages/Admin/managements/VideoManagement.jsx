@@ -16,7 +16,6 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import toast from "react-hot-toast";
-import { ApplicationConfig } from "../../../Constants/Constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 const VideoManagement = () => {

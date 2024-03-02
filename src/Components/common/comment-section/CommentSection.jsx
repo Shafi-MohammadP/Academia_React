@@ -1,11 +1,7 @@
 // CommentsSection.js
 import React, { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "reactstrap";
-import {
-  ApplicationConfig,
-  BaseUrl,
-  accessToken
-} from "../../../Constants/Constants";
+import { BaseUrl } from "../../../Constants/Constants";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Box, Input, Typography } from "@mui/material";

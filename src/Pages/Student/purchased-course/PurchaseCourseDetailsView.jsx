@@ -228,8 +228,8 @@ const PurchaseCourseDetailsView = () => {
         </Container>
 
         <Container>
-          <Row>
-            <Col lg="12" className="text-center mb-5"></Col>
+          <Row className="py-2">
+            {/* <Col lg="12" className="text-center mb-5"></Col> */}
 
             <>
               <div className="flex justify-center">
@@ -239,25 +239,19 @@ const PurchaseCourseDetailsView = () => {
                       Course Videos
                     </h2>
                     {courseVideo.map((video_details, index) => (
-                      <div className="flex gap-16 p-2 border rounded-md h-52">
+                      <div className="md:flex block gap-16 p-2 border rounded-md md:h-52">
                         <div key={index} className="relative cursor-pointer">
                           <img
-                            className="h-full w-96"
+                            className="h-full "
                             src={video_details.thumbnail_image}
-                            alt="demo image"
+                            alt="course_video image"
                             onClick={() => handleVideoShow(video_details)}
-                          />
-                          <FontAwesomeIcon
-                            className="absolute text-black bg-white  top-[40%] left-[40%] w-10 h-10 cursor-pointer"
-                            style={{ borderRadius: "50%" }}
-                            icon={faPlay}
-                            onClick={() => openModal(video_details)}
                           />
                         </div>
                         <div className="w-4/5 bg-white">
                           <h4
                             className="text-black"
-                            style={{ fontWeight: "bold", fontSize: "30px" }}
+                            style={{ fontWeight: "bold", fontSize: "20px" }}
                           >
                             {video_details.video_title}
                           </h4>
@@ -270,11 +264,6 @@ const PurchaseCourseDetailsView = () => {
                           <div className="flex p-2 text-2xl flex-row justify-between">
                             <div className="flex" gap-6>
                               <i
-                                // className={
-                                //   liked.video === video_details.id
-                                //     ? `ri-thumb-up-fill cursor-pointer`
-                                //     : `ri-thumb-up-line cursor-pointer`
-                                // }
                                 onClick={() =>
                                   handleVideoLikes(video_details.id)
                                 }
@@ -282,13 +271,6 @@ const PurchaseCourseDetailsView = () => {
                               >
                                 {checkLiked(video_details.id)}
                               </i>
-                              {/* <i
-                                className="ri-thumb-up-line text-2xl cursor-pointer"
-                                onClick={() =>
-                                  handleVideoLikes(video_details.id)
-                                }
-                                title="like"
-                              ></i> */}
                             </div>
                             <i
                               onClick={() => handleOpen(video_details.id)}
@@ -296,11 +278,6 @@ const PurchaseCourseDetailsView = () => {
                             >
                               {checkReported(video_details.id)}
                             </i>
-                            {/* <i
-                              className="ri-alarm-warning-line cursor-pointer"
-                              onClick={() => handleOpen(video_details)}
-                              title="report"
-                            ></i> */}
                           </div>
                         </div>
                       </div>

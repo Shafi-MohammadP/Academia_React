@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { BaseUrl } from "../../Constants/Constants";
 import PaymentLoader from "./payment-loader/PaymentLoader";
-import { config } from "../../Constants/Constants";
 function SuccessPage() {
   const queryParameters = new URLSearchParams(window.location.search);
   const userId = queryParameters.get("userId");
@@ -39,6 +38,7 @@ function SuccessPage() {
         const tokenDataString = localStorage.getItem("authToken");
         const tokenData = JSON.parse(tokenDataString);
         const accessToken = tokenData ? tokenData.access : null;
+        console.log(accessToken, tokenData);
         const data = {
           student: userId,
           course: courseId,

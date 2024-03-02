@@ -23,7 +23,16 @@ header {
   background-color: #c7e2e6;
   color: black;
 }
-
+nav {
+  display: flex;
+  align-items: center;
+}
+nav {
+  margin-left: auto;
+}
+img {
+  order: -1;
+}
 nav a {
   margin: 0 1rem;
   color: black;
@@ -56,6 +65,7 @@ nav {
   header .nav-btn {
     visibility: visible;
     opacity: 1;
+    color: #dd9f0d;
   }
 
   header nav {
@@ -77,9 +87,6 @@ nav {
     transform: translateY(100vh);
   }
 
-  header .user {
-    visibility: hidden;
-  }
   header input {
     visibility: hidden;
   }

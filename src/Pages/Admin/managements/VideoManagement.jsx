@@ -34,6 +34,9 @@ const VideoManagement = () => {
   };
   const handleApproval = async (id) => {
     const apiUrl = `${BaseUrl}dashboard/videoApproval/${id}/`;
+    const tokenDataString = localStorage.getItem("authToken");
+    const tokenData = JSON.parse(tokenDataString);
+    const accessToken = tokenData ? tokenData.access : null;
     try {
       const response = await fetch(apiUrl, {
         method: "PATCH",

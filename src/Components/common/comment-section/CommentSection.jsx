@@ -4,7 +4,7 @@ import { Button, Col, Form, Row } from "reactstrap";
 import {
   ApplicationConfig,
   BaseUrl,
-  accessToken,
+  accessToken
 } from "../../../Constants/Constants";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -39,6 +39,9 @@ const CommentsSection = ({ user, calculateDate, videoId }) => {
   };
   const handlePostComment = async () => {
     const apiUrl = `${BaseUrl}course/video_comment/`;
+    const tokenDataString = localStorage.getItem("authToken");
+    const tokenData = JSON.parse(tokenDataString);
+    const accessToken = tokenData ? tokenData.access : null;
     if (newComment.trim() === "") {
       toast.error("Field cannot be empty");
       return;

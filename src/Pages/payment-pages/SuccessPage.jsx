@@ -1,7 +1,7 @@
 import React, { useEffect, useLayoutEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { BaseUrl, accessToken } from "../../Constants/Constants";
+import { BaseUrl } from "../../Constants/Constants";
 import PaymentLoader from "./payment-loader/PaymentLoader";
 import { config } from "../../Constants/Constants";
 function SuccessPage() {
@@ -36,6 +36,9 @@ function SuccessPage() {
 
       const purchaseCourse = async () => {
         const apiUrl = `${BaseUrl}course/purchase_course/`;
+        const tokenDataString = localStorage.getItem("authToken");
+        const tokenData = JSON.parse(tokenDataString);
+        const accessToken = tokenData ? tokenData.access : null;
         const data = {
           student: userId,
           course: courseId,
@@ -46,7 +49,7 @@ function SuccessPage() {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${accessToken}`, 
+              Authorization: `Bearer ${accessToken}`,
             },
             body: JSON.stringify(data),
           });

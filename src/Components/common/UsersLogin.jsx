@@ -23,12 +23,38 @@ function UsersLogin() {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const message = queryParams.get("message");
-
   useEffect(() => {
     if (message) {
       toast.success(message);
     }
   }, [message]);
+  async function fetchStudentProfile(id) {
+    try {
+
+      const apiUrl = `${BaseUrl}student/StudentProfileShow/${id}/`;
+      const response = await axios.get(apiUrl);
+
+
+     
+      return response.data;
+    } catch (error) {
+      console.log(error, "Error during student profile show");
+      throw error;
+    }
+  }
+  async function fetchTutorProfile(id) {
+    try {
+    
+      const apiUrl = `${BaseUrl}tutor/TutorProfileShow/${id}/`;
+      const response = await axios.get(apiUrl);
+      
+
+      return response.data;
+    } catch (error) {
+      console.log(error, "Error during student profile show");
+      throw error;
+    }
+  }
   useEffect(() => {
     const googleAuth = async () => {
       try {
@@ -42,42 +68,89 @@ function UsersLogin() {
             },
           }
         );
-        const googleuser = {
+        const googleUser = {
           email: response.data.email,
-          username: response.data.name,
+          username:
+            response.data.name.length > 20
+              ? response.data.given_name
+              : response.data.name,
           password: response.data.id,
         };
         try {
-          const backendresponse = await axios.post(GoogleLoginUrl, googleuser);
-          const res = backendresponse.data;
-          const token = jwtDecode(res.token.access_token);
-          console.log(token, "gfdgfdgfdgfdg");
+          const backendResponse = await axios.post(GoogleLoginUrl, googleUser);
+          const res = backendResponse.data;
+          const token = jwtDecode(res.token.access);
           if (res.status === 200) {
             localStorage.setItem("authToken", JSON.stringify(res.token));
-            const userSet = {
-              user_id: token.user_id,
-              name: token.username,
-              email: token.email,
-              is_admin: token.is_admin,
-              role: token.role,
-            };
-            dispatch(setUserDetails(userSet));
-            if (token.role === "student") {
-              navigate("/");
-              toast.success(res.Text);
-            } else if (token.role === "admin") {
-              navigate("/admin/");
-              toast.success(res.Text);
-            } else if (token.role === "tutor") {
-              navigate("/tutor/");
-              toast.success(res.Text);
+            try {
+              if (token.role === "tutor") {
+                const tutorProfileResponse = await fetchTutorProfile(token.id);
+                const tutor_id = tutorProfileResponse.data;
+                
+                const tutorSet = {
+                  user_id: token.user_id,
+                  name: token.username,
+                  email: token.email,
+                  is_admin: token.is_admin,
+                  role: token.role,
+                  id: tutor_id,
+                };
+                dispatch(setUserDetails(tutorSet));
+              } else if (token.role === "student") {
+                const studentProfileResponse = await fetchStudentProfile(
+                  token.id
+                );
+                const student_id = studentProfileResponse.data;
+                
+                const studentSet = {
+                  user_id: token.user_id,
+                  name: token.username,
+                  email: token.email,
+                  is_admin: token.is_admin,
+                  role: token.role,
+                  id: student_id,
+                };
+                dispatch(setUserDetails(studentSet));
+              } else if (token.role === "admin") {
+                const adminSet = {
+                  user_id: token.user_id,
+                  name: token.username,
+                  email: token.email,
+                  is_admin: token.is_admin,
+                  role: token.role,
+                };
+                dispatch(setUserDetails(adminSet));
+              } else if (token.role === "admin") {
+                const adminSet = {
+                  user_id: token.user_id,
+                  name: token.username,
+                  email: token.email,
+                  is_admin: token.is_admin,
+                  role: token.role,
+                };
+                dispatch(setUserDetails(adminSet));
+              }
+
+             
+              if (token.role === "student") {
+                navigate("/");
+                toast.success(res.Text);
+              } else if (token.role === "admin") {
+                navigate("/admin/");
+                toast.success(res.Text);
+              } else if (token.role === "tutor") {
+                navigate("/tutor/");
+                toast.success(res.Text);
+              }
+            } catch (err) {
+              console.log(err, "Error during  profile show");
             }
           }
         } catch (error) {
-          cl("Error During Loginnnnnnn", error);
+          cl("Error During Login", error);
         }
       } catch (error) {
-        console.log(error, "Error found during Gooogle Login");
+        console.log(error, "Error found during Google Login");
       }
     };
     if (guser) {

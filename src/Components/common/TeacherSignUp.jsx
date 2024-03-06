@@ -24,14 +24,11 @@ function TeacherSignUp() {
       validationSchema: SignupValidationSchema,
       onSubmit: async (values) => {
         setLoading(true);
-        console.log(values, "pppppppppppppppppppppppppppppppppppppp");
+       
         try {
           const responsedata = await axios.post(commonSignupurl, values);
           const response = responsedata.data;
-          console.log(
-            response,
-            "responseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
-          );
+         
           if (response.status === 200) {
             toast.success(response.Text);
             navigate("/emailcheck/");
@@ -39,10 +36,7 @@ function TeacherSignUp() {
             toast.error(response.Text);
             navigate("/tutor/signup/");
           } else {
-            console.log(
-              responsedata,
-              "else errrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrorrrrr"
-            );
+           
           }
         } catch (error) {
           console.error("Erroun found during signup", error);

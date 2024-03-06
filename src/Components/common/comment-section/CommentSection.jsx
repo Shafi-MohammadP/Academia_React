@@ -219,11 +219,10 @@ const CommentsSection = ({ user, calculateDate, videoId }) => {
           </Col>
         </Row>
 
-        {/* Existing comments section */}
         {comments.length !== 0 ? (
           <>
             {comments
-              .slice() // Create a copy of the array to avoid mutating the original
+              .slice()
               .sort((a, b) => (a.user.id === user.user_id ? -1 : 1))
               .map((comment) => (
                 <div

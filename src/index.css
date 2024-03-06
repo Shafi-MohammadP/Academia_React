@@ -43,14 +43,14 @@ p {
 }
 
 button.btn {
-  background: #17bf9e;
-  color: #fff;
+  background: #5dbea3;
+  color: white;
   padding: 7px 25px;
-  border-radius: 50px;
+  border-radius: 10px;
 }
 button.btn:hover {
-  background: white;
-  color: #0a2b1e;
+  background: #408c76;
+  color: black;
 }
 i {
   color: #dd9f0d;

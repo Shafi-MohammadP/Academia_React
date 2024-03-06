@@ -13,7 +13,7 @@ import { Loader } from "../Loader/Loader";
 function StudentSignUp() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const cl = console.log.bind(console);
+
   const [loading, setLoading] = useState(false);
   const initialState = {
     username: "",
@@ -29,14 +29,9 @@ function StudentSignUp() {
       onSubmit: async (values) => {
         setLoading(true);
         try {
-          console.log(
-            values,
-            "valueeeeeeeeeeeeeeeeeeeeeeeeeeeesssssssssssssssssssss"
-          );
           const responseData = await axios.post(commonSignupurl, values);
           const response = responseData.data;
-          console.log(response, "oooooooooooooooo");
-          console.log(responseData.data, "iiiiiiiiiiiiiiiiiiiiiiiiii");
+
           if (response.status === 200) {
             const setEmail = {
               email: values.email,

@@ -16,6 +16,7 @@ import PurchaseCourse from "../../Pages/Student/purchased-course/PurchaseCourse"
 import PurchaseCourseDetailsView from "../../Pages/Student/purchased-course/PurchaseCourseDetailsView";
 import PurchasedCourseVideo from "../../Pages/Student/video-show/PurchasedCourseVideo";
 import AboutUs from "../../Components/common/about-us/AboutUs";
+import ResetPassword from "../../Components/common/reset-password/ResetPassword";
 // import { LoginPage } from "../../Pages/Student/Login/Login";
 // import { SignupPage } from "../../Pages/Student/Signup/Signup";
 
@@ -95,7 +96,15 @@ const StudentRoutes = () => {
           <Route element={<Userprotected />}>
             {/* <Route index element={<HeroSection />} /> */}
             <Route index element={<Home />} />
-            <Route path="studentprofile/" element={<StudentProfilePage />} />
+            <Route path="studentprofile/">
+              <Route index element={<StudentProfilePage />}></Route>
+              <Route
+                path="rest-password-verification/"
+                element={<ResetPassword />}
+              >
+                {" "}
+              </Route>
+            </Route>
             <Route path="purchased-course/" element={<PurchaseCourse />} />
             <Route
               path="purchased-course/course-detail-view/"

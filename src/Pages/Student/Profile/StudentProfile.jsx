@@ -37,12 +37,15 @@ import { Loader } from "../../../Components/Loader/Loader";
 import { BaseUrl, imageBaseUrl } from "../../../Constants/Constants";
 // import { FaClosedCaptioning } from "react-icons/fa";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 export default function StudentProfilePage() {
   const [change, setChange] = useState(0);
   const handlesetChange = () => {
     setChange((pre) => pre + 1);
   };
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+
   const handleLoading = () => setLoading((cur) => !cur);
   const [selectedFile, setSelectedFile] = useState(null);
   const [open, setOpen] = React.useState(false);
@@ -59,7 +62,7 @@ export default function StudentProfilePage() {
   const [mobile, setMobile] = useState("");
   const [qualification, setQualification] = useState("");
   const [imageChange, setImageChange] = useState([]);
-
+  const [username, setUsername] = useState("");
   const handleSubmit = async (e) => {
     const apiUrl = `${BaseUrl}student/profileEdit/${user.id}/`;
     e.preventDefault();
@@ -96,6 +99,16 @@ export default function StudentProfilePage() {
       "qualification",
       qualification ? qualification : user.qualification
     );
+    if (username.trim() !== "") {
+      EditProfile.append("username", username);
+      setUsername("");
+    }
+    setQualification("");
+    setBio("");
+    setMobile("");
+    EditProfile.forEach((value, key) => {
+      console.log(`${key}, ${value}`);
+    });
     try {
       const response = await axios.patch(apiUrl, EditProfile);
       const data = response.data;
@@ -122,17 +135,37 @@ export default function StudentProfilePage() {
   };
 
   const handleFileChange = (event) => {
-    // Handle the file change here
     imageAddFile = event.target.files[0];
     console.log(imageAddFile, "image add file");
     setImageChange(imageAddFile);
     setSelectedFile(imageAddFile);
-    // Add logic to update the user's profile photo with the selected file
   };
 
   useEffect(() => {
     if (!student) return;
   });
+  async function handleResetPassword(email) {
+    setLoading(true);
+    const apiUrl = `${BaseUrl}user/reset_password_otp_verify/`;
+    const data = {
+      email: email,
+    };
+    try {
+      const response = await axios.post(apiUrl, data);
+      if (response.status === 200) {
+        toast.success(response.data.message);
+        navigate("rest-password-verification/");
+      } else if (response.status === 404) {
+        console.log("404");
+      } else if (response.status === 500) {
+        console.log(response.data.error);
+      }
+    } catch (err) {
+      console.error(err, "otp sending");
+    } finally {
+      setLoading(false);
+    }
+  }
 
   useEffect(() => {
     const fetchStudentProfile = async () => {
@@ -148,7 +181,7 @@ export default function StudentProfilePage() {
       }
     };
 
-    fetchStudentProfile(); // Call the function to fetch student profile
+    fetchStudentProfile();
   }, [change]);
 
   if (user.length === 0) {
@@ -161,13 +194,30 @@ export default function StudentProfilePage() {
 
   return (
     <>
-      {loading && <Loader />}
-
       <section style={{ backgroundColor: "#fff" }}>
+        {loading && <Loader />}
         <MDBContainer className="py-5">
           <MDBRow>
             <MDBCol lg="4">
               <MDBCard className="mb-4">
+                {/* <i
+                  onClick={() =>
+                    handleResetPassword(user.student_details.email)
+                  }
+                  className="text-end px-3 text-2xl cursor-pointer"
+                  title="reset password"
+                >
+                  <span>Reset Password</span>
+                </i> */}
+                {/* <p
+                  className="text-end px-3 cursor-pointer"
+                  onClick={() =>
+                    handleResetPassword(user.student_details.email)
+                  }
+                >
+                  <i className="ri-key-line px-1"></i>
+                  <span className="">Reset Password</span>
+                </p> */}
                 <MDBCardBody className="text-center">
                   {user.profile_photo ? (
                     <MDBCardImage
@@ -191,8 +241,24 @@ export default function StudentProfilePage() {
                     {user ? user.qualification : null}
                   </p>
                   {/* <p className="text-muted mb-4">Bay Area, San Francisco, CA</p> */}
-                  <div className="d-flex justify-content-center mb-2">
-                    <MDBBtn onClick={handleOpen}>Edit Profile</MDBBtn>
+                  <div className="flex justify-evenly">
+                    <div className=" mb-2">
+                      <MDBBtn onClick={handleOpen}>Edit Profile</MDBBtn>
+                    </div>
+                    <div className=" mb-2">
+                      <MDBBtn
+                        onClick={() =>
+                          handleResetPassword(user.student_details.email)
+                        }
+                      >
+                        {" "}
+                        <span
+                          className="ri-key-line"
+                          style={{ color: "yellow" }}
+                        ></span>{" "}
+                        Reset Password
+                      </MDBBtn>
+                    </div>
                   </div>
                 </MDBCardBody>
               </MDBCard>
@@ -354,8 +420,10 @@ export default function StudentProfilePage() {
 
                 <div class="relative h-11 w-full min-w-[200px]">
                   <input
-                    placeholder="Username"
-                    value={user.student_details.username}
+                    placeholder={user.student_details.username}
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    // value={user.student_details.username}
                     class="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
                   />
                   <label class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all before:content-none after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all after:content-none peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500"></label>

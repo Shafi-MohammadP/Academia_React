@@ -36,7 +36,7 @@ export function TutorStickyNavbar() {
     if (!tutor_id) {
       axios.get(`${BaseUrl}user/tutorProfile/${tutor.user_id}`).then((res) => {
         setUser(res.data);
-        console.log(res.data, "datass");
+
         dispatch(setTutor_id(res.data.id));
       });
     }

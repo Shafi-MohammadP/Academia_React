@@ -34,7 +34,7 @@ const AdminLayout = () => {
   };
   return (
     <>
-      <div className=" overflow-hidden ">
+      <div className="overflow-hidden ">
         <div className="flex h-screen overflow-hidden">
           <MultiLevelSidebar />
           <div className="flex flex-1 flex-col overflow-y-auto overflow-x-auto">

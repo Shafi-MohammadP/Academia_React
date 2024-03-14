@@ -1,10 +1,6 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { PencilIcon, UserPlusIcon } from "@heroicons/react/24/solid";
-import {
-  BaseUrl,
-  stdentlistingUrl,
-  studentSugnupUrl,
-} from "../../Constants/Constants";
+import { PencilIcon } from "@heroicons/react/24/solid";
+import { BaseUrl, stdentlistingUrl } from "../../Constants/Constants";
 import { useState } from "react";
 import axios from "axios";
 import {
@@ -46,20 +42,40 @@ const TABLE_HEAD = ["name", "Email", "Bio", "status", ""];
 export function MembersTable() {
   const [student, setStudent] = useState([]);
   const [change, setChange] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(stdentlistingUrl);
-        console.log(response.data);
-        setStudent(response.data);
-      } catch (error) {
-        console.error("Error fetching student data:", error);
+  const fetchData = async () => {
+    const apiUrl = `${stdentlistingUrl}?page=${currentPage}`;
+    try {
+      const response = await axios.get(apiUrl);
+      console.log(response.data.results);
+      setStudent(response.data.results);
+      if (response.data.results.length === 3) {
+        setTotalPages(
+          Math.ceil(response.data.count / response.data.results.length)
+        );
+      } else {
+        setTotalPages(totalPages);
       }
-    };
-
+    } catch (error) {
+      console.error("Error fetching student data:", error);
+    }
+  };
+  useEffect(() => {
     fetchData();
-  }, [change]);
+  }, [change, currentPage]);
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage((prevPage) => prevPage - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage((prevPage) => prevPage + 1);
+    }
+  };
   const handleBlock = async (value) => {
     const apiUrl = `${BaseUrl}dashboard/userBlockAndUnblock/${value}/`;
     const tokenDataString = localStorage.getItem("authToken");
@@ -230,12 +246,19 @@ export function MembersTable() {
                       </div>
                     </td>
                     <td className={classes}>
-                      <Tooltip content="Edit User">
+                      <Tooltip
+                        content={
+                          student_details.is_active
+                            ? "Block user"
+                            : "Unblock user"
+                        }
+                      >
                         <IconButton
                           variant="text"
                           onClick={() => handleBlock(user)}
                         >
-                          <PencilIcon className="h-4 w-4" />
+                          {/* <PencilIcon className="h-4 w-4" /> */}
+                          <i className="ri-spam-2-line text-2xl"></i>
                         </IconButton>
                       </Tooltip>
                     </td>
@@ -248,13 +271,13 @@ export function MembersTable() {
       </CardBody>
       <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
         <Typography variant="small" color="blue-gray" className="font-normal">
-          Page 1 of 10
+          Page {currentPage} of {totalPages}
         </Typography>
         <div className="flex gap-2">
-          <Button variant="outlined" size="sm">
+          <Button variant="outlined" size="sm" onClick={handlePreviousPage}>
             Previous
           </Button>
-          <Button variant="outlined" size="sm">
+          <Button variant="outlined" size="sm" onClick={handleNextPage}>
             Next
           </Button>
         </div>

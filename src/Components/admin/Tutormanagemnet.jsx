@@ -1,5 +1,4 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { PencilIcon, UserPlusIcon } from "@heroicons/react/24/solid";
 import { BaseUrl, tutorlistingUrl } from "../../Constants/Constants";
 import { useState } from "react";
 import axios from "axios";
@@ -42,19 +41,36 @@ const TABLE_HEAD = ["name", "Email", "Bio", "Qualifications", "status", ""];
 export function MembersTable() {
   const [tutor, setTutor] = useState([]);
   const [change, setChange] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
+  const fetchData = async () => {
+    const apiUrl = `${tutorlistingUrl}?page=${currentPage}`;
+    console.log(apiUrl, "api");
+    try {
+      const response = await axios.get(apiUrl);
+      setTutor(response.data.results);
+      setTotalPages(
+        Math.ceil(response.data.count / response.data.results.length)
+      );
+    } catch (error) {
+      console.log(error, "this error found");
+    }
+  };
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage((prevPage) => prevPage - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage((prevPage) => prevPage + 1);
+    }
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(tutorlistingUrl);
-        setTutor(response.data);
-      } catch (error) {
-        console.log(error, "this error found");
-      }
-    };
-
     fetchData();
-  }, [change]);
+  }, [change, currentPage]);
   const handleBlock = async (value) => {
     const apiUrl = `${BaseUrl}dashboard/userBlockAndUnblock/${value}/`;
     const tokenDataString = localStorage.getItem("authToken");
@@ -198,15 +214,18 @@ export function MembersTable() {
                       </div>
                     </td>
                     <td className={classes}>
-                      <Tooltip content="Edit User">
+                      <Tooltip
+                        content={
+                          tutor_details.is_active
+                            ? "Block user"
+                            : "Unblock user"
+                        }
+                      >
                         <IconButton
                           variant="text"
                           onClick={() => handleBlock(user)}
                         >
-                          <PencilIcon
-                            // onClick={() => handleBlock(user)}
-                            className="h-4 w-4"
-                          />
+                          <i className="ri-spam-2-line text-2xl"></i>
                         </IconButton>
                       </Tooltip>
                     </td>
@@ -219,13 +238,13 @@ export function MembersTable() {
       </CardBody>
       <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
         <Typography variant="small" color="blue-gray" className="font-normal">
-          Page 1 of 10
+          Page {currentPage} of {totalPages}
         </Typography>
         <div className="flex gap-2">
-          <Button variant="outlined" size="sm">
+          <Button variant="outlined" size="sm" onClick={handlePreviousPage}>
             Previous
           </Button>
-          <Button variant="outlined" size="sm">
+          <Button variant="outlined" size="sm" onClick={handleNextPage}>
             Next
           </Button>
         </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import toast from "react-hot-toast";
 import logo from "../../assets/Company_Logo.png";
 import DashboardIcon from "@mui/icons-material/Dashboard";
@@ -35,10 +35,16 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { resetState } from "../../redux/User";
 import { useEffect } from "react";
+import { BaseUrl } from "../../Constants/Constants";
+import axios from "axios";
 export function MultiLevelSidebar() {
   const [open, setOpen] = React.useState(0);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [details, setDetails] = useState([]);
+  const tokenDataString = localStorage.getItem("authToken");
+  const tokenData = JSON.parse(tokenDataString);
+  const accessToken = tokenData ? tokenData.access : null;
   //   const authToken = JSON.parse(localStorage.getItem("authToken"));
   //   useEffect(() => {
   //     console.log(authToken, "tokenAvailable.......");
@@ -63,98 +69,6 @@ export function MultiLevelSidebar() {
           </Typography>
         </div>
         <List>
-          {/* <Accordion
-            open={open === 1}
-            icon={
-              <ChevronDownIcon
-                strokeWidth={2.5}
-                className={`mx-auto h-4 w-4 transition-transform ${
-                  open === 1 ? "rotate-180" : ""
-                }`}
-              />
-            }
-          >
-            <ListItem className="p-0" selected={open === 1}>
-              <AccordionHeader
-                onClick={() => handleOpen(1)}
-                className="border-b-0 p-3"
-              >
-                <ListItemPrefix>
-                  <PresentationChartBarIcon className="h-5 w-5" />
-                </ListItemPrefix>
-                <Typography color="blue-gray" className="mr-auto font-normal">
-                  Dashboard
-                </Typography>
-              </AccordionHeader>
-            </ListItem>
-            <AccordionBody className="py-1">
-              <List className="p-0">
-                <Link to={"/admin/studentmanagement/"}>
-                  <ListItem className="text-black">
-                    <ListItemPrefix>
-                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                    </ListItemPrefix>
-                    Student Management
-                  </ListItem>
-                </Link>
-                <Link to={"/admin/tutormanagment/"}>
-                  <ListItem className="text-black">
-                    <ListItemPrefix>
-                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                    </ListItemPrefix>
-                    Tutor Management
-                  </ListItem>
-                </Link>
-                <ListItem>
-                  <ListItemPrefix>
-                    <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                  </ListItemPrefix>
-                  Projects
-                </ListItem>
-              </List>
-            </AccordionBody>
-          </Accordion>
-          <Accordion
-            open={open === 2}
-            icon={
-              <ChevronDownIcon
-                strokeWidth={2.5}
-                className={`mx-auto h-4 w-4 transition-transform ${
-                  open === 2 ? "rotate-180" : ""
-                }`}
-              />
-            }
-          >
-            <ListItem className="p-0" selected={open === 2}>
-              <AccordionHeader
-                onClick={() => handleOpen(2)}
-                className="border-b-0 p-3"
-              >
-                <ListItemPrefix>
-                  <ShoppingBagIcon className="h-5 w-5" />
-                </ListItemPrefix>
-                <Typography color="blue-gray" className="mr-auto font-normal">
-                  E-Commerce
-                </Typography>
-              </AccordionHeader>
-            </ListItem>
-            <AccordionBody className="py-1">
-              <List className="p-0">
-                <ListItem>
-                  <ListItemPrefix>
-                    <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                  </ListItemPrefix>
-                  Orders
-                </ListItem>
-                <ListItem>
-                  <ListItemPrefix>
-                    <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                  </ListItemPrefix>
-                  Products
-                </ListItem>
-              </List>
-            </AccordionBody>
-          </Accordion> */}
           <ListItem>
             <ListItemPrefix>
               <DashboardIcon className="h-5 w-5" />
@@ -178,15 +92,7 @@ export function MultiLevelSidebar() {
             <Link className="text-black" to={"/admin/tutormanagment/"}>
               Tutor management
             </Link>
-            <ListItemSuffix>
-              {/* <Chip
-                value="14"
-                size="sm"
-                variant="ghost"
-                color="blue-gray"
-                className="rounded-full"
-              /> */}
-            </ListItemSuffix>
+            <ListItemSuffix></ListItemSuffix>
           </ListItem>
           <ListItem>
             <ListItemPrefix>
@@ -228,16 +134,6 @@ export function MultiLevelSidebar() {
           </ListItem>
         </List>
       </Card>
-      {/* Navbar/Header */}
-      {/* <Card className="w-full p-4 shadow-md bg-white">
-        <div className="flex items-center justify-between">    <Typography variant="h5" color="blue-gray">
-            <span className="text-green-900">ACADEMIA</span>
-          </Typography>
-
-          <BellIcon className="h-6 w-6 text-blue-gray cursor-pointer" />
-        </div>
-        <hr />
-      </Card> */}
     </div>
   );
 }

@@ -61,8 +61,12 @@ const ApplicationForm = () => {
       category: selectedCategory,
     };
     const isValidPrice = price > 0;
-    if (!isValidPrice) {
-      const warningMessage = "Price Should be Greater Than zero";
+    const isValid = Object.values(courseFormValidations).every(
+      (value) => value !== null && value.trim() !== ""
+    );
+
+    if (!isValid) {
+      const warningMessage = "fields cannot be empty";
       toast(
         <CustomWarningToast
           message={warningMessage}
@@ -80,19 +84,14 @@ const ApplicationForm = () => {
       setLoading(false);
       return;
     }
-    const isValid = Object.values(courseFormValidations).every(
-      (value) => value !== null && value.trim() !== ""
-    );
-
-    if (!isValid) {
-      const warningMessage = "fields cannot be empty";
+    if (!isValidPrice) {
+      const warningMessage = "Price Should be Greater Than zero";
       toast(
         <CustomWarningToast
           message={warningMessage}
           icon={faExclamationTriangle}
         />,
         {
-          // Additional options for the toast.error function
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,

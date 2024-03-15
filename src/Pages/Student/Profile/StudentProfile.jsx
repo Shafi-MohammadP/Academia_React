@@ -34,7 +34,11 @@ import axios from "axios";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 // import { useLocation } from "react-router-dom";
 import { Loader } from "../../../Components/Loader/Loader";
-import { BaseUrl, imageBaseUrl } from "../../../Constants/Constants";
+import {
+  BaseUrl,
+  accessToken,
+  imageBaseUrl,
+} from "../../../Constants/Constants";
 // import { FaClosedCaptioning } from "react-icons/fa";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -151,7 +155,12 @@ export default function StudentProfilePage() {
       email: email,
     };
     try {
-      const response = await axios.post(apiUrl, data);
+      const response = await axios.post(apiUrl, data, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+      });
       if (response.status === 200) {
         toast.success(response.data.message);
         navigate("rest-password-verification/");

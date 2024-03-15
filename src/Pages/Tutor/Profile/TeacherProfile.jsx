@@ -1,7 +1,11 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { BaseUrl, imageBaseUrl } from "../../../Constants/Constants";
+import {
+  BaseUrl,
+  accessToken,
+  imageBaseUrl,
+} from "../../../Constants/Constants";
 import { Button } from "@material-tailwind/react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -241,8 +245,14 @@ function TeacherProfile() {
     const data = {
       email: email,
     };
+
     try {
-      const response = await axios.post(apiUrl, data);
+      const response = await axios.post(apiUrl, data, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+      });
       console.log(response, "response");
       if (response.status === 200) {
         toast.success(response.data.message);

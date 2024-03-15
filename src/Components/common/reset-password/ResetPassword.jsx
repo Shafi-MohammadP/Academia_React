@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { BaseUrl } from "../../../Constants/Constants";
+import { BaseUrl, accessToken } from "../../../Constants/Constants";
 import axios from "axios";
 import { Container, Row } from "reactstrap";
 import toast from "react-hot-toast";
@@ -47,10 +47,15 @@ function ResetPassword() {
     };
     console.log(data, "data");
     try {
-      const response = await axios.patch(apiUrl, data);
-      console.log(response.status, "response object"); // Log the complete response object
+      const response = await axios.patch(apiUrl, data, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      console.log(response.data.token, "response object");
 
       if (response.status === 200) {
+        localStorage.setItem("jwtToken", response.data.token.access);
         toast.success(response.data.message);
         setIsOtpVerified(true);
       } else if (response.status === 203) {
@@ -89,8 +94,15 @@ function ResetPassword() {
         confirmPassword: confirmPassword,
       };
       const apiUrl = `${BaseUrl}user/password_change/${user.user_id}/`;
-      const response = await axios.patch(apiUrl, data);
+      const token = localStorage.getItem("jwtToken");
+      console.log(token, "token");
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      };
+      const response = await axios.patch(apiUrl, data, { headers });
       if (response.status === 200) {
+        localStorage.removeItem("jwtToken");
         if (user.role === "student") {
           navigate("/studentprofile");
         } else {

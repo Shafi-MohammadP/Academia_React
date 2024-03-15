@@ -176,10 +176,7 @@ function Category() {
           toast.error(data.message);
         }
       } else {
-        // Handle non-OK response
-        toast.error(
-          `Failed to update category. HTTP error! Status: ${response.status}`
-        );
+        toast.error(data.message);
       }
     } catch (err) {
       console.error("Error during fetching:", err);
@@ -299,25 +296,36 @@ function Category() {
             <Typography variant="h4" color="primary">
               Edit Category
             </Typography>
-            <Typography variant="h6" color="black">
+            {/* <Typography variant="h6" color="black">
               Current Category :{categoryDetails.name}
-            </Typography>
-            <TextField
-              label="name"
-              type="text"
-              //   value={name}
-              onChange={(e) => setName(e.target.value)}
-              name="name"
-              fullWidth
-            />
+            </Typography> */}
+            <div className="flex flex-wrap">
+              <label htmlFor="" className="txt py-2">
+                Category Name
+              </label>
+              <TextField
+                placeholder={categoryDetails.name}
+                label={categoryDetails.name}
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                name="name"
+                fullWidth
+              />
+              <label htmlFor="" className="txt py-2">
+                Category Description
+              </label>
 
-            <TextField
-              label="Description"
-              type="text"
-              name="description"
-              onChange={(e) => setDescription(e.target.value)}
-              fullWidth
-            />
+              <TextField
+                placeholder={categoryDetails.description}
+                label={categoryDetails.description}
+                type="text"
+                name="description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                fullWidth
+              />
+            </div>
           </CardContent>
           <CardActions>
             {/* <Button onClick={handleCloseModal} fullWidth>

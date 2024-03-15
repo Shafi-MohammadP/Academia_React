@@ -129,7 +129,7 @@ const TutorCoursesView = () => {
   const handleSubmit = async (value) => {
     const tokenDataString = localStorage.getItem("authToken");
     const tokenData = JSON.parse(tokenDataString);
-    const accessToken = tokenData ? tokenData.access : null;
+    // const accessToken = tokenData ? tokenData.access : null;
     const apiUrl = `${BaseUrl}course/updateCourse/${tutor.id}/${value}/`;
     handleCloseModal();
     const editCourse = new FormData();
@@ -145,6 +145,7 @@ const TutorCoursesView = () => {
       description ? description : courseDetails.description
     );
     editCourse.append("price", price ? price : courseDetails.price);
+    console.log(accessToken, "token");
     try {
       const response = await fetch(apiUrl, {
         method: "PATCH",

@@ -6,7 +6,7 @@ import TutorHome from "../../Pages/Tutor/Home/TutorHome";
 import Tutorprotected from "../protectedRoutes/Tutorprotected";
 import ApplicationForm from "../../Pages/Tutor/application form/ApplicationForm";
 import { useEffect } from "react";
-import { BaseUrl } from "../../Constants/Constants";
+import { BaseUrl, SocketBase, SocketUrl } from "../../Constants/Constants";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import TutorCoursesView from "../../Components/tutor/TutorCourseViewAndupdate";
@@ -30,7 +30,7 @@ const TutorRoutes = () => {
   }, []);
   useEffect(() => {
     const tutorSocket = new WebSocket(
-      "wss://academiabackend.molla.cloud/ws/tutor_notifications/"
+      `${SocketBase}${SocketUrl}ws/tutor_notifications/`
     );
 
     tutorSocket.onopen = (event) => {

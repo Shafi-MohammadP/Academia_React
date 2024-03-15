@@ -39,75 +39,13 @@ const ApplicationForm = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [imageChange, setImageChange] = useState([]);
   const [categories, setCategories] = useState([]);
-
   let imageAddFile = null;
-  // useEffect(() => {
-  //   const socket = new WebSocket("ws://localhost:8000/ws/adminnotification/");
-
-  //   socket.onopen = (event) => {
-  //     console.log("WebSocket connection opened:", event);
-  //   };
-
-  //   socket.onmessage = (event) => {
-  //     console.log("WebSocket message received:", event);
-
-  //     // Parse the message data if needed
-  //     const messageData = JSON.parse(event.data);
-  //     console.log(messageData, "message data");
-  //     // Show a notification
-  //     showNotification(messageData.message);
-  //   };
-
-  //   socket.onerror = (error) => {
-  //     console.error("WebSocket error:", error);
-  //   };
-
-  //   socket.onclose = (event) => {
-  //     console.log("WebSocket connection closed:", event);
-  //   };
-
-  //   // Function to show a notification
-  //   const showNotification = (message) => {
-  //     if ("Notification" in window) {
-  //       console.log(message, "message---------------------->>>>>");
-  //       const currentPermission = Notification.permission;
-
-  //       if (currentPermission === "granted") {
-  //         console.log(message, "message---------------------->>>>>");
-
-  //         // Permission already granted, create a notification
-  //         new Notification("New Message", {
-  //           body: message,
-  //         });
-  //       } else if (currentPermission !== "denied") {
-  //         // Permission not granted or denied, request it
-  //         Notification.requestPermission().then((permission) => {
-  //           console.log(message, "message---------------------->>>>>");
-
-  //           if (permission === "granted") {
-  //             // Permission granted, create a notification
-  //             new Notification("New Message", {
-  //               body: message,
-  //             });
-  //           }
-  //         });
-  //       }
-  //     }
-  //   };
-
-  //   // Clean up the WebSocket connection on component unmount
-  //   return () => {
-  //     socket.close();
-  //   };
-  // }, []);
 
   useEffect(() => {
     axios.get(`${BaseUrl}dashboard/categoriesList/`).then((res) => {
       setCategories(res.data);
-      // console.log(categories, "categories");
     });
   }, []);
-  // console.log(categories, "categories");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -122,6 +60,26 @@ const ApplicationForm = () => {
       price: price,
       category: selectedCategory,
     };
+    const isValidPrice = price > 0;
+    if (!isValidPrice) {
+      const warningMessage = "Price Should be Greater Than zero";
+      toast(
+        <CustomWarningToast
+          message={warningMessage}
+          icon={faExclamationTriangle}
+        />,
+        {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        }
+      );
+      setLoading(false);
+      return;
+    }
     const isValid = Object.values(courseFormValidations).every(
       (value) => value !== null && value.trim() !== ""
     );
@@ -192,6 +150,11 @@ const ApplicationForm = () => {
       }
       const responseData = await response.json();
       if (responseData.status === 200) {
+        setCourseName("");
+        setDescription("");
+        setPrice("");
+        setSelectedCategory("");
+        setImageChange([]);
         toast.success(responseData.message);
         navigate("/tutor/");
       } else {
@@ -207,8 +170,6 @@ const ApplicationForm = () => {
   const handleFileChange = (e) => {
     imageAddFile = e.target.files[0];
     setImageChange(imageAddFile);
-    // setImageChange(imageAddFile);
-    // setSelectedFile(imageAddFile);
   };
   const handleCategoryChange = (e) => {
     setSelectedCategory(e.target.value);
@@ -224,26 +185,6 @@ const ApplicationForm = () => {
       <div className="w-screen min-h-screen flex justify-center px-2  bg-gray-50">
         <div className="md:w-2/4 py-5 px-10 bg-white rounded-md border shadow-lg  h-fit">
           <form onSubmit={handleSubmit}>
-            {/* <div className="md:flex gap-4">
-              <TextField
-                label="First Name"
-                variant="outlined"
-                name="firstName"
-                value={formData.firstName}
-                onChange={handleChange}
-                fullWidth
-                margin="normal"
-              />
-              <TextField
-                label="Last Name"
-                variant="outlined"
-                name="lastName"
-                value={formData.lastName}
-                onChange={handleChange}
-                fullWidth
-                margin="normal"
-              />
-            </div> */}
             <div>
               <label>Categories:</label>
               <select value={selectedCategory} onChange={handleCategoryChange}>
@@ -276,23 +217,25 @@ const ApplicationForm = () => {
               margin="normal"
             />
             <TextField
-              // label="Address"
               variant="outlined"
               type="file"
-              // value={for}
+              inputProps={{ accept: "image/*" }}
               onChange={handleFileChange}
               fullWidth
               margin="normal"
             />
-            {/* <TextField
-              label="Phone Number"
-              variant="outlined"
-              name="phoneNumber"
-              value={formData.phoneNumber}
-              onChange={handleChange}
-              fullWidth
-              margin="normal"
-            /> */}
+            {imageChange.length !== 0 && (
+              <img
+                className="rounded "
+                src={
+                  typeof imageChange === "string"
+                    ? imageChange
+                    : URL.createObjectURL(imageChange)
+                }
+                alt="Image Preview"
+              />
+            )}
+
             <TextField
               label="Price"
               variant="outlined"

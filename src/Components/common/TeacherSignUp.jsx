@@ -24,11 +24,11 @@ function TeacherSignUp() {
       validationSchema: SignupValidationSchema,
       onSubmit: async (values) => {
         setLoading(true);
-       
+
         try {
           const responsedata = await axios.post(commonSignupurl, values);
           const response = responsedata.data;
-         
+
           if (response.status === 200) {
             toast.success(response.Text);
             navigate("/emailcheck/");
@@ -36,7 +36,6 @@ function TeacherSignUp() {
             toast.error(response.Text);
             navigate("/tutor/signup/");
           } else {
-           
           }
         } catch (error) {
           console.error("Erroun found during signup", error);
@@ -139,7 +138,7 @@ function TeacherSignUp() {
               type="submit"
               className="w-full my-5 py-2 bg-orange-500 shadow-orange-500/50 hover:shadow-orange-500/30 text-white font-semibold rounded-lg"
             >
-              Sign In
+              Sign Up
             </button>
             <div>
               <p className="text-white">

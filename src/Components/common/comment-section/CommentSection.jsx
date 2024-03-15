@@ -1,7 +1,7 @@
 // CommentsSection.js
 import React, { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "reactstrap";
-import { BaseUrl } from "../../../Constants/Constants";
+import { BaseUrl, SocketBase, SocketUrl } from "../../../Constants/Constants";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Box, Input, Typography } from "@mui/material";
@@ -135,8 +135,9 @@ const CommentsSection = ({ user, calculateDate, videoId }) => {
   }, [managePage]);
   useEffect(() => {
     const commentSocket = new WebSocket(
-      "wss://academiabackend.molla.cloud/ws/comment_updation/"
+      `${SocketBase}${SocketUrl}ws/comment_updation/`
     );
+    console.log(commentSocket, "socket");
     commentSocket.onopen = (event) => {
       console.log("WebSocket connection opened in comment:", event);
     };

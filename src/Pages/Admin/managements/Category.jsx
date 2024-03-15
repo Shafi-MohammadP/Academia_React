@@ -10,6 +10,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Button } from "@material-tailwind/react";
 import { faAdd } from "@fortawesome/free-solid-svg-icons";
+import { Loader } from "../../../Components/Loader/Loader";
 // import { Button } from "@material-tailwind/react";
 import toast from "react-hot-toast";
 import { faPencil, faCheck, faXmark } from "@fortawesome/free-solid-svg-icons";
@@ -28,6 +29,7 @@ import { Form } from "react-router-dom";
 
 function Category() {
   const [category, setCategory] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [change, setChange] = useState(false);
   const [open, setOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
@@ -67,12 +69,11 @@ function Category() {
     setOpen(!open);
   };
   const handleApproval = (id) => {
-    console.log(id, "category Id");
+    setLoading(true);
     const apiUrl = `${BaseUrl}dashboard/categoryUpdateAndDeletion/${id}/`;
     const tokenDataString = localStorage.getItem("authToken");
     const tokenData = JSON.parse(tokenDataString);
     const accessToken = tokenData ? tokenData.access : null;
-    console.log(accessToken);
     try {
       fetch(apiUrl, {
         method: "DELETE",
@@ -92,13 +93,17 @@ function Category() {
         });
     } catch (err) {
       console.log(err, "Error During fetching");
+    } finally {
+      setLoading(false);
     }
   };
   const handleCategoryAdding = async () => {
     handleEditCloseModal();
+    setLoading(true);
     if (!name.trim() || !description.trim()) {
       // If either name or description is empty or contains only whitespace
       toast.error("Please provide both name and description.");
+      setLoading(false);
       return;
     }
     const apiUrl = `${BaseUrl}dashboard/categoryCreating/`;
@@ -106,9 +111,6 @@ function Category() {
     const tokenData = JSON.parse(tokenDataString);
     const accessToken = tokenData ? tokenData.access : null;
     const addCourse = new FormData();
-    console.log("New name:", name);
-    console.log("New description:", description);
-
     addCourse.append("name", name);
     addCourse.append("description", description);
 
@@ -122,7 +124,7 @@ function Category() {
       });
       if (!response.ok) {
         console.error(`Server error: ${response.status}`);
-        // Handle server errors or unexpected responses
+        setLoading(false);
         return;
       }
       const responseData = await response.json();
@@ -136,19 +138,18 @@ function Category() {
       }
     } catch (err) {
       console.log(err, "Error in adding category");
+    } finally {
+      setLoading(false);
     }
   };
   const handleSubmit = async (id) => {
+    setLoading(true);
     handleCloseModal();
     const apiUrl = `${BaseUrl}dashboard/categoryUpdateAndDeletion/${id}/`;
     const tokenDataString = localStorage.getItem("authToken");
     const tokenData = JSON.parse(tokenDataString);
     const accessToken = tokenData ? tokenData.access : null;
     const editCourse = new FormData();
-
-    console.log("Updated name:", name);
-    console.log("Updated description:", description);
-
     editCourse.append("name", name ? name : categoryDetails.name);
     editCourse.append(
       "description",
@@ -181,11 +182,14 @@ function Category() {
     } catch (err) {
       console.error("Error during fetching:", err);
       toast.error("Error during fetching. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <>
+      {loading && <Loader />}
       <div className="flex justify-end">
         <Button className="bg-blue-700" onClick={handleEditOpenModal}>
           <FontAwesomeIcon className="w-8" icon={faAdd}></FontAwesomeIcon>

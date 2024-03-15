@@ -17,13 +17,14 @@ import PurchaseCourseDetailsView from "../../Pages/Student/purchased-course/Purc
 import PurchasedCourseVideo from "../../Pages/Student/video-show/PurchasedCourseVideo";
 import AboutUs from "../../Components/common/about-us/AboutUs";
 import ResetPassword from "../../Components/common/reset-password/ResetPassword";
+import { SocketBase, SocketUrl } from "../../Constants/Constants";
 // import { LoginPage } from "../../Pages/Student/Login/Login";
 // import { SignupPage } from "../../Pages/Student/Signup/Signup";
 
 const StudentRoutes = () => {
   useEffect(() => {
     const studentSocket = new WebSocket(
-      "wss://academiabackend.molla.cloud/ws/student_notifications/"
+      `${SocketBase}${SocketUrl}ws/student_notifications/`
     );
 
     studentSocket.onopen = (event) => {

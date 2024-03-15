@@ -4,10 +4,13 @@ import { Navigate, Outlet } from "react-router-dom";
 import TutorRoutes from "../TutorRoutes/TutorRoutes";
 import StudentRoutes from "../StudentRoutes/StudentRoutes";
 import { useEffect } from "react";
+import { SocketBase, SocketUrl } from "../../Constants/Constants";
 function Adminprotected() {
   const token = localStorage.getItem("authToken");
   useEffect(() => {
-    const adminSocket = new WebSocket('wss://academiabackend.molla.cloud/ws/adminnotification/');
+    const adminSocket = new WebSocket(
+      `${SocketBase}${SocketUrl}ws/adminnotification/`
+    );
 
     adminSocket.onopen = (event) => {
       console.log("WebSocket connection opened:", event);

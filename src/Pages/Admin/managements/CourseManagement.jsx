@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BaseUrl } from "../../../Constants/Constants";
+import { BaseUrl, accessToken } from "../../../Constants/Constants";
 import axios from "axios";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -93,15 +93,21 @@ const CourseManagement = () => {
     const apiUrl = `${BaseUrl}dashboard/courseApproval/${id}/`;
 
     try {
-      axios.patch(apiUrl).then((res) => {
-        console.log(res.data);
-        if (res.status === 200) {
-          setChange(!change);
-          toast.success("Approved Successfully");
-        } else {
-          toast.error("Something Went Wrong");
-        }
-      });
+      axios
+        .patch(apiUrl, null, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        })
+        .then((res) => {
+          console.log(res.data);
+          if (res.status === 200) {
+            setChange(!change);
+            toast.success("Approved Successfully");
+          } else {
+            toast.error("Something Went Wrong");
+          }
+        });
     } catch (err) {
       console.log(err, "Error During Approval");
     }
